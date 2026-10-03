@@ -43,7 +43,7 @@ flowchart LR
   W2 --> Q
 ```
 
-Each step is one model call (or a short search loop) with a typed output validated by zod. The search steps give the model a web search tool plus a `submit` tool for the structured answer; the loop resumes paused searches and asks once more if the model stops without submitting. Searches are capped per step (5 to find companies, 3 per company), so a run stays bounded.
+Each step is one model call (or a short search loop) with a typed output validated by zod. The search steps give the model a web search tool plus a `submit` tool for the structured answer; the loop resumes paused searches and asks once more if the model stops without submitting. Searches are capped per request (5 when finding companies, 3 when researching one) and each search loop runs at most 4 requests, so a run stays bounded.
 
 The homepage fetch refuses private and loopback addresses, checks every resolved IP on the socket it connects with, follows at most 3 redirects, and stops at 1 MB or 8 seconds.
 
@@ -105,6 +105,7 @@ Measured on real runs: about 100 seconds and about $1 per run of 10 companies, w
 - **No sending.** It drafts and exports. Sending, follow-ups and replies are up to you.
 - **Search quality varies.** Some runs pick companies that are larger than ideal, or that already use the product. Small companies often have no recent public signal, and then you get a fit-only email. Signals sometimes come from data aggregators rather than primary sources.
 - **Verified means found, not true.** The rule guarantees the source page was really retrieved. It does not check that the summary matches the page word for word.
+- **Voice matching is light.** Pasted samples shift tone and greeting more than structure.
 - **JavaScript-heavy homepages** give it less to read. You can fix the summary by hand before it searches.
 
 ## What I'd build next

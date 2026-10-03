@@ -225,7 +225,7 @@ function Start(props: {
             />
           </details>
         ) : (
-          <p className="mt-4 text-sm text-muted">Live runs need an API key on the server. This replays a real recorded run on {props.demoDomain}.</p>
+          <p className="mt-4 text-sm text-muted">Live runs are off on this deployment. This replays a real recorded run on {props.demoDomain}.</p>
         )}
       </form>
       {props.live && (
@@ -358,7 +358,7 @@ function exportCsv(cards: Card[]) {
   a.href = URL.createObjectURL(blob);
   a.download = "approved-emails.csv";
   a.click();
-  URL.revokeObjectURL(a.href);
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
 
 export function Queue({ cards, stats, total, onChange, still = false }: { cards: Card[]; stats: Stats | null; total: number; onChange?: (domain: string, patch: Partial<Card>) => void; still?: boolean }) {
