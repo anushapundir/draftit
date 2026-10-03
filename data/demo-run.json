@@ -1,0 +1,769 @@
+{
+  "domain": "posthog.com",
+  "recordedAt": "2026-10-03T18:39:10.815Z",
+  "durationMs": 106750,
+  "costUsd": 1.1442,
+  "searches": 25,
+  "events": [
+    {
+      "t": 0,
+      "event": {
+        "type": "step",
+        "message": "Reading homepage..."
+      }
+    },
+    {
+      "t": 249,
+      "event": {
+        "type": "step",
+        "message": "Read 85 words from posthog.com"
+      }
+    },
+    {
+      "t": 249,
+      "event": {
+        "type": "step",
+        "message": "Working out who buys it..."
+      }
+    },
+    {
+      "t": 5402,
+      "event": {
+        "type": "profile",
+        "domain": "posthog.com",
+        "profile": {
+          "name": "PostHog",
+          "summary": "PostHog sells an all-in-one product analytics platform that combines event analytics, session replay, feature flags, A/B testing, surveys, and a data warehouse. Its newer pitch is a context layer that automatically diagnoses problems, fixes bugs, and opens pull requests without being prompted. It is sold to software product and engineering teams that want one tool instead of stitching together several separate analytics and experimentation vendors.",
+          "icp": "Buyer: Software and SaaS companies. The purchase is usually owned by engineering leads, heads of product, or product engineers, with data teams and founders involved at smaller companies.\nSize: Mostly startups and scale-ups from seed to Series C, roughly 5 to 500 employees, with self-serve adoption by small teams and sales-assisted expansion at larger ones.\nSignals they need it now:\n- Job posts for product engineers, product analysts, or growth engineers that mention tools like Amplitude, Mixpanel, or Heap\n- Recent launch of a new product or major feature that needs usage tracking and experimentation\n- Job posts for a first data engineer or analytics engineer at a small software company\n- Public complaints or posts about rising costs or complexity from multiple analytics, session replay, and feature flag tools\n- Recent funding round at a software startup with an engineering team scaling quickly"
+        }
+      }
+    },
+    {
+      "t": 5402,
+      "event": {
+        "type": "step",
+        "message": "Searching for companies that would buy this..."
+      }
+    },
+    {
+      "t": 37999,
+      "event": {
+        "type": "companies",
+        "companies": [
+          {
+            "name": "depthfirst",
+            "domain": "depthfirst.com",
+            "fit": "Series A ($40M) AI security software startup scaling engineering and product hiring, needing usage tracking and experimentation."
+          },
+          {
+            "name": "Renterra",
+            "domain": "getrenterra.com",
+            "fit": "Series A ($9M) rental management SaaS hiring across product and engineering, a fit for unified analytics, replay and flags."
+          },
+          {
+            "name": "Linq",
+            "domain": "linq.ai",
+            "fit": "Series A ($20M) developer-facing messaging platform for AI agents hiring product and backend roles that need adoption analytics."
+          },
+          {
+            "name": "Artie",
+            "domain": "artie.com",
+            "fit": "Series A data streaming SaaS with a growing engineering team that would need product analytics and experimentation on its dashboard."
+          },
+          {
+            "name": "Attio",
+            "domain": "attio.com",
+            "fit": "Scale-up CRM SaaS with fast feature shipping that needs funnel analytics, experiments and replay in one tool."
+          },
+          {
+            "name": "Mintlify",
+            "domain": "mintlify.com",
+            "fit": "Developer documentation SaaS at growth stage with a product-led motion needing usage analytics and A/B tests."
+          },
+          {
+            "name": "Loops",
+            "domain": "loops.so",
+            "fit": "Small email-for-SaaS company with a lean product team likely to prefer one consolidated analytics stack."
+          },
+          {
+            "name": "Trigger.dev",
+            "domain": "trigger.dev",
+            "fit": "Seed-stage developer platform with a small engineering team shipping often and needing feature flags and product analytics."
+          },
+          {
+            "name": "Dub",
+            "domain": "dub.co",
+            "fit": "Small link-management SaaS with self-serve growth that benefits from funnels, experiments and replay."
+          },
+          {
+            "name": "Resend",
+            "domain": "resend.com",
+            "fit": "Developer email API company scaling fast with a product-led funnel needing activation analytics and experimentation."
+          }
+        ],
+        "rejected": [
+          {
+            "name": "Clerk",
+            "domain": "clerk.com",
+            "reason": "over the limit"
+          },
+          {
+            "name": "Railway",
+            "domain": "railway.com",
+            "reason": "over the limit"
+          },
+          {
+            "name": "Cal.com",
+            "domain": "cal.com",
+            "reason": "over the limit"
+          },
+          {
+            "name": "Neon",
+            "domain": "neon.com",
+            "reason": "over the limit"
+          },
+          {
+            "name": "Supabase",
+            "domain": "supabase.com",
+            "reason": "over the limit"
+          }
+        ]
+      }
+    },
+    {
+      "t": 37999,
+      "event": {
+        "type": "company",
+        "domain": "depthfirst.com",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 37999,
+      "event": {
+        "type": "company",
+        "domain": "getrenterra.com",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 38000,
+      "event": {
+        "type": "company",
+        "domain": "linq.ai",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 42538,
+      "event": {
+        "type": "company",
+        "domain": "linq.ai",
+        "status": "none",
+        "message": "No recent signal found"
+      }
+    },
+    {
+      "t": 42538,
+      "event": {
+        "type": "company",
+        "domain": "linq.ai",
+        "status": "drafting",
+        "message": "Drafting fit-only email..."
+      }
+    },
+    {
+      "t": 45795,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Linq",
+          "domain": "linq.ai",
+          "fit": "Series A ($20M) developer-facing messaging platform for AI agents hiring product and backend roles that need adoption analytics.",
+          "signal": null,
+          "signalStatus": "none",
+          "email": {
+            "subject": "Adoption analytics for Linq",
+            "body": "Hi Linq team,\n\nLinq builds a messaging platform for AI agents, and developer products like that usually need to see where people drop off between signup, first message sent, and production use. PostHog puts event analytics, session replay, feature flags, A/B tests and surveys in one tool, so product and backend engineers can work from the same data instead of stitching together several vendors.\n\nIt can also flag problems on its own and open pull requests for fixes.\n\nWould it be useful if I sent over a short example of how a developer-facing product tracks activation in PostHog?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 45795,
+      "event": {
+        "type": "company",
+        "domain": "artie.com",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 48047,
+      "event": {
+        "type": "company",
+        "domain": "depthfirst.com",
+        "status": "signal",
+        "message": "Signal found: depthfirst, an applied AI security lab, raised a $40M Series A led by Accel to expand research and its platform for finding software vulnerabilities.",
+        "url": "https://fintech.global/2026/01/15/software-security-firm-depthfirst-raises-40m-series-a/"
+      }
+    },
+    {
+      "t": 48047,
+      "event": {
+        "type": "company",
+        "domain": "depthfirst.com",
+        "status": "drafting",
+        "message": "Drafting email..."
+      }
+    },
+    {
+      "t": 51204,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "depthfirst",
+          "domain": "depthfirst.com",
+          "fit": "Series A ($40M) AI security software startup scaling engineering and product hiring, needing usage tracking and experimentation.",
+          "signal": {
+            "kind": "funding",
+            "summary": "depthfirst, an applied AI security lab, raised a $40M Series A led by Accel to expand research and its platform for finding software vulnerabilities.",
+            "date": "2026-01",
+            "url": "https://fintech.global/2026/01/15/software-security-firm-depthfirst-raises-40m-series-a/"
+          },
+          "signalStatus": "verified",
+          "email": {
+            "subject": "Product analytics after your Series A",
+            "body": "Hi depthfirst team,\n\nI'm writing because depthfirst raised a $40M Series A to expand its platform for finding software vulnerabilities. Growing a product like that usually means more people shipping changes, and a need to see how customers actually use them.\n\nPostHog puts event analytics, session replay, feature flags, A/B testing and surveys in one tool, so your engineers and product team work from the same data instead of several separate vendors. It can also flag problems and open pull requests with fixes.\n\nWould it be useful if I sent a short note on how teams your size set this up?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 51204,
+      "event": {
+        "type": "company",
+        "domain": "attio.com",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 52742,
+      "event": {
+        "type": "company",
+        "domain": "getrenterra.com",
+        "status": "none",
+        "message": "No recent signal found"
+      }
+    },
+    {
+      "t": 52742,
+      "event": {
+        "type": "company",
+        "domain": "getrenterra.com",
+        "status": "drafting",
+        "message": "Drafting fit-only email..."
+      }
+    },
+    {
+      "t": 55951,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Renterra",
+          "domain": "getrenterra.com",
+          "fit": "Series A ($9M) rental management SaaS hiring across product and engineering, a fit for unified analytics, replay and flags.",
+          "signal": null,
+          "signalStatus": "none",
+          "email": {
+            "subject": "One tool for product analytics",
+            "body": "Hi Renterra team,\n\nRenterra looks like a product team that is growing its engineering and product headcount, which is usually when analytics, session replay, feature flags and experiments start living in four separate tools.\n\nPostHog puts event analytics, replay, flags, A/B tests, surveys and a data warehouse in one place, so your team can see what users do, ship behind a flag, and measure the result without stitching vendors together. It can also diagnose issues and open pull requests for fixes on its own.\n\nWould it be useful if I sent over a short note on how teams set this up for a B2B SaaS product?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 55952,
+      "event": {
+        "type": "company",
+        "domain": "mintlify.com",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 63072,
+      "event": {
+        "type": "company",
+        "domain": "artie.com",
+        "status": "signal",
+        "message": "Signal found: Artie, a real-time CDC data streaming platform, raised a $12M Series A led by Standard Capital with Y Combinator participating, per a funding profile page.",
+        "url": "https://startupintros.com/orgs/artie"
+      }
+    },
+    {
+      "t": 63072,
+      "event": {
+        "type": "company",
+        "domain": "artie.com",
+        "status": "drafting",
+        "message": "Drafting email..."
+      }
+    },
+    {
+      "t": 66277,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Artie",
+          "domain": "artie.com",
+          "fit": "Series A data streaming SaaS with a growing engineering team that would need product analytics and experimentation on its dashboard.",
+          "signal": {
+            "kind": "funding",
+            "summary": "Artie, a real-time CDC data streaming platform, raised a $12M Series A led by Standard Capital with Y Combinator participating, per a funding profile page.",
+            "date": "2026-01",
+            "url": "https://startupintros.com/orgs/artie"
+          },
+          "signalStatus": "verified",
+          "email": {
+            "subject": "Product analytics after your Series A",
+            "body": "Hi Artie team,\n\nI'm writing because Artie recently raised a $12M Series A, and a growing engineering team usually means more questions about how customers actually use the dashboard.\n\nPostHog puts event analytics, session replay, feature flags, A/B testing and surveys in one tool, so you don't have to stitch several vendors together. It can also flag problems in the product and open pull requests for fixes.\n\nWould it be useful if I sent a short note on how teams set this up for a data product dashboard?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 66277,
+      "event": {
+        "type": "company",
+        "domain": "loops.so",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 70407,
+      "event": {
+        "type": "company",
+        "domain": "attio.com",
+        "status": "none",
+        "message": "No recent signal found"
+      }
+    },
+    {
+      "t": 70407,
+      "event": {
+        "type": "company",
+        "domain": "attio.com",
+        "status": "drafting",
+        "message": "Drafting fit-only email..."
+      }
+    },
+    {
+      "t": 72128,
+      "event": {
+        "type": "company",
+        "domain": "mintlify.com",
+        "status": "signal",
+        "message": "Signal found: Mintlify raised a $45M Series B at a $500M valuation, co-led by Andreessen Horowitz and Salesforce Ventures, and is expanding into knowledge infrastructure for AI agents via MCP support.",
+        "url": "https://stockanalysis.com/private/mintlify/"
+      }
+    },
+    {
+      "t": 72128,
+      "event": {
+        "type": "company",
+        "domain": "mintlify.com",
+        "status": "drafting",
+        "message": "Drafting email..."
+      }
+    },
+    {
+      "t": 73940,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Attio",
+          "domain": "attio.com",
+          "fit": "Scale-up CRM SaaS with fast feature shipping that needs funnel analytics, experiments and replay in one tool.",
+          "signal": null,
+          "signalStatus": "none",
+          "email": {
+            "subject": "Analytics and experiments in one tool",
+            "body": "Hi Attio team,\n\nI'm writing because teams shipping CRM features quickly often end up with funnel analytics, session replay, feature flags and experiments spread across separate vendors, and the data rarely lines up.\n\nPostHog puts all of that in one product, with a data warehouse underneath. Product and engineering can see where users drop off, watch the sessions, and test a fix behind a flag without switching tools. We're also building a layer that flags problems and opens pull requests for fixes.\n\nWould it be useful if I sent over a short note on how teams consolidate their stack onto PostHog?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 73940,
+      "event": {
+        "type": "company",
+        "domain": "trigger.dev",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 75232,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Mintlify",
+          "domain": "mintlify.com",
+          "fit": "Developer documentation SaaS at growth stage with a product-led motion needing usage analytics and A/B tests.",
+          "signal": {
+            "kind": "funding",
+            "summary": "Mintlify raised a $45M Series B at a $500M valuation, co-led by Andreessen Horowitz and Salesforce Ventures, and is expanding into knowledge infrastructure for AI agents via MCP support.",
+            "date": "2026-04",
+            "url": "https://stockanalysis.com/private/mintlify/"
+          },
+          "signalStatus": "verified",
+          "email": {
+            "subject": "Analytics after the Series B",
+            "body": "Hi Mintlify team,\n\nI'm writing because Mintlify just raised a $45M Series B and is expanding into knowledge infrastructure for AI agents via MCP support. Growth like that usually means more product surface to measure and more experiments to run.\n\nPostHog puts product analytics, session replay, feature flags, A/B tests and surveys in one tool, so a product-led team doesn't have to stitch together several vendors. It can also diagnose problems and open pull requests on its own.\n\nWould it be useful if I sent over a short note on how teams set this up for docs products?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 75232,
+      "event": {
+        "type": "company",
+        "domain": "dub.co",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 75825,
+      "event": {
+        "type": "company",
+        "domain": "loops.so",
+        "status": "signal",
+        "message": "Signal found: Loops launched Goals, a feature that lets users measure whether an email campaign drove a desired outcome, moving the product toward conversion and outcome analytics.",
+        "url": "https://www.producthunt.com/products/loops"
+      }
+    },
+    {
+      "t": 75825,
+      "event": {
+        "type": "company",
+        "domain": "loops.so",
+        "status": "drafting",
+        "message": "Drafting email..."
+      }
+    },
+    {
+      "t": 78401,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Loops",
+          "domain": "loops.so",
+          "fit": "Small email-for-SaaS company with a lean product team likely to prefer one consolidated analytics stack.",
+          "signal": {
+            "kind": "launch",
+            "summary": "Loops launched Goals, a feature that lets users measure whether an email campaign drove a desired outcome, moving the product toward conversion and outcome analytics.",
+            "date": "2026-07",
+            "url": "https://www.producthunt.com/products/loops"
+          },
+          "signalStatus": "verified",
+          "email": {
+            "subject": "Loops Goals and product analytics",
+            "body": "Hi Loops team,\n\nI'm writing because Loops launched Goals, which lets users measure whether an email campaign drove a desired outcome. Tracking outcomes like that usually means joining events, replays, and experiments across a few separate tools.\n\nPostHog puts event analytics, session replay, feature flags, A/B tests, surveys, and a data warehouse in one place, so a small product team can check how Goals is used and test changes without stitching vendors together.\n\nWould it be useful if I sent over a short example of how teams set this up?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 78401,
+      "event": {
+        "type": "company",
+        "domain": "resend.com",
+        "status": "searching",
+        "message": "Searching for a recent signal..."
+      }
+    },
+    {
+      "t": 89723,
+      "event": {
+        "type": "company",
+        "domain": "trigger.dev",
+        "status": "signal",
+        "message": "Signal found: Trigger.dev made its AI Agents platform (chat.agent, Sessions, AI Prompts) generally available in v4.5.0, moving it into end-user AI chat products where usage analytics, replay and experimentation matter.",
+        "url": "https://trigger.dev/changelog/v4-5-0"
+      }
+    },
+    {
+      "t": 89723,
+      "event": {
+        "type": "company",
+        "domain": "trigger.dev",
+        "status": "drafting",
+        "message": "Drafting email..."
+      }
+    },
+    {
+      "t": 92119,
+      "event": {
+        "type": "company",
+        "domain": "dub.co",
+        "status": "none",
+        "message": "No recent signal found"
+      }
+    },
+    {
+      "t": 92119,
+      "event": {
+        "type": "company",
+        "domain": "dub.co",
+        "status": "drafting",
+        "message": "Drafting fit-only email..."
+      }
+    },
+    {
+      "t": 92599,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Trigger.dev",
+          "domain": "trigger.dev",
+          "fit": "Seed-stage developer platform with a small engineering team shipping often and needing feature flags and product analytics.",
+          "signal": {
+            "kind": "launch",
+            "summary": "Trigger.dev made its AI Agents platform (chat.agent, Sessions, AI Prompts) generally available in v4.5.0, moving it into end-user AI chat products where usage analytics, replay and experimentation matter.",
+            "date": "2026-07",
+            "url": "https://trigger.dev/changelog/v4-5-0"
+          },
+          "signalStatus": "verified",
+          "email": {
+            "subject": "AI Agents GA and product analytics",
+            "body": "Hi Trigger.dev team,\n\nI'm writing because your AI Agents platform (chat.agent, Sessions, AI Prompts) became generally available in v4.5.0. Once agents sit inside end-user chat products, you usually want to see how people actually use them, replay where they get stuck, and test prompt or flag changes safely.\n\nPostHog puts event analytics, session replay, feature flags, A/B testing and surveys in one tool, so a small engineering team doesn't have to stitch together several vendors.\n\nWould it be useful if I sent over a short example of how teams set this up for AI chat features?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 95545,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Dub",
+          "domain": "dub.co",
+          "fit": "Small link-management SaaS with self-serve growth that benefits from funnels, experiments and replay.",
+          "signal": null,
+          "signalStatus": "none",
+          "email": {
+            "subject": "One tool for product analytics",
+            "body": "Hi Dub team,\n\nDub looks like a product-led SaaS where signup, link creation and upgrade flows matter a lot. PostHog puts funnels, session replay, feature flags, A/B tests and surveys in one place, so you can see where users drop off, watch what happened, and test a fix without stitching together separate vendors.\n\nWe're also building a layer that diagnoses problems and opens pull requests for fixes on its own.\n\nWould it be useful if I sent a short example of how a team your size sets up its first signup funnel?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 103409,
+      "event": {
+        "type": "company",
+        "domain": "resend.com",
+        "status": "signal",
+        "message": "Signal found: Resend published a blog post about the public launch of its new email editor, which is built on its open-source react.email library, a new user-facing product surface that could benefit from product analytics, session replay and experimentation.",
+        "url": "https://resend.com/blog/new-email-public-launch"
+      }
+    },
+    {
+      "t": 103409,
+      "event": {
+        "type": "company",
+        "domain": "resend.com",
+        "status": "drafting",
+        "message": "Drafting email..."
+      }
+    },
+    {
+      "t": 106750,
+      "event": {
+        "type": "prospect",
+        "prospect": {
+          "name": "Resend",
+          "domain": "resend.com",
+          "fit": "Developer email API company scaling fast with a product-led funnel needing activation analytics and experimentation.",
+          "signal": {
+            "kind": "launch",
+            "summary": "Resend published a blog post about the public launch of its new email editor, which is built on its open-source react.email library, a new user-facing product surface that could benefit from product analytics, session replay and experimentation.",
+            "date": "2026-07",
+            "url": "https://resend.com/blog/new-email-public-launch"
+          },
+          "signalStatus": "verified",
+          "email": {
+            "subject": "Resend's new email editor",
+            "body": "Hi Resend team,\n\nI'm writing because you recently published the public launch of your new email editor, built on react.email. A new product surface like that usually raises questions fast: where do people drop off, what do they actually use, and which changes help activation.\n\nPostHog puts event analytics, session replay, feature flags and A/B testing in one tool, so you can see how people use the editor and test changes to it without stitching together separate vendors.\n\nWould it be useful if I sent over a short note on how teams set this up for a product-led funnel?\n\n[Your name]"
+          }
+        }
+      }
+    },
+    {
+      "t": 106750,
+      "event": {
+        "type": "done",
+        "stats": {
+          "verified": 6,
+          "dropped": 0,
+          "none": 4,
+          "failed": 0
+        }
+      }
+    }
+  ],
+  "profile": {
+    "name": "PostHog",
+    "summary": "PostHog sells an all-in-one product analytics platform that combines event analytics, session replay, feature flags, A/B testing, surveys, and a data warehouse. Its newer pitch is a context layer that automatically diagnoses problems, fixes bugs, and opens pull requests without being prompted. It is sold to software product and engineering teams that want one tool instead of stitching together several separate analytics and experimentation vendors.",
+    "icp": "Buyer: Software and SaaS companies. The purchase is usually owned by engineering leads, heads of product, or product engineers, with data teams and founders involved at smaller companies.\nSize: Mostly startups and scale-ups from seed to Series C, roughly 5 to 500 employees, with self-serve adoption by small teams and sales-assisted expansion at larger ones.\nSignals they need it now:\n- Job posts for product engineers, product analysts, or growth engineers that mention tools like Amplitude, Mixpanel, or Heap\n- Recent launch of a new product or major feature that needs usage tracking and experimentation\n- Job posts for a first data engineer or analytics engineer at a small software company\n- Public complaints or posts about rising costs or complexity from multiple analytics, session replay, and feature flag tools\n- Recent funding round at a software startup with an engineering team scaling quickly"
+  },
+  "prospects": [
+    {
+      "name": "Linq",
+      "domain": "linq.ai",
+      "fit": "Series A ($20M) developer-facing messaging platform for AI agents hiring product and backend roles that need adoption analytics.",
+      "signal": null,
+      "signalStatus": "none",
+      "email": {
+        "subject": "Adoption analytics for Linq",
+        "body": "Hi Linq team,\n\nLinq builds a messaging platform for AI agents, and developer products like that usually need to see where people drop off between signup, first message sent, and production use. PostHog puts event analytics, session replay, feature flags, A/B tests and surveys in one tool, so product and backend engineers can work from the same data instead of stitching together several vendors.\n\nIt can also flag problems on its own and open pull requests for fixes.\n\nWould it be useful if I sent over a short example of how a developer-facing product tracks activation in PostHog?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "depthfirst",
+      "domain": "depthfirst.com",
+      "fit": "Series A ($40M) AI security software startup scaling engineering and product hiring, needing usage tracking and experimentation.",
+      "signal": {
+        "kind": "funding",
+        "summary": "depthfirst, an applied AI security lab, raised a $40M Series A led by Accel to expand research and its platform for finding software vulnerabilities.",
+        "date": "2026-01",
+        "url": "https://fintech.global/2026/01/15/software-security-firm-depthfirst-raises-40m-series-a/"
+      },
+      "signalStatus": "verified",
+      "email": {
+        "subject": "Product analytics after your Series A",
+        "body": "Hi depthfirst team,\n\nI'm writing because depthfirst raised a $40M Series A to expand its platform for finding software vulnerabilities. Growing a product like that usually means more people shipping changes, and a need to see how customers actually use them.\n\nPostHog puts event analytics, session replay, feature flags, A/B testing and surveys in one tool, so your engineers and product team work from the same data instead of several separate vendors. It can also flag problems and open pull requests with fixes.\n\nWould it be useful if I sent a short note on how teams your size set this up?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Renterra",
+      "domain": "getrenterra.com",
+      "fit": "Series A ($9M) rental management SaaS hiring across product and engineering, a fit for unified analytics, replay and flags.",
+      "signal": null,
+      "signalStatus": "none",
+      "email": {
+        "subject": "One tool for product analytics",
+        "body": "Hi Renterra team,\n\nRenterra looks like a product team that is growing its engineering and product headcount, which is usually when analytics, session replay, feature flags and experiments start living in four separate tools.\n\nPostHog puts event analytics, replay, flags, A/B tests, surveys and a data warehouse in one place, so your team can see what users do, ship behind a flag, and measure the result without stitching vendors together. It can also diagnose issues and open pull requests for fixes on its own.\n\nWould it be useful if I sent over a short note on how teams set this up for a B2B SaaS product?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Artie",
+      "domain": "artie.com",
+      "fit": "Series A data streaming SaaS with a growing engineering team that would need product analytics and experimentation on its dashboard.",
+      "signal": {
+        "kind": "funding",
+        "summary": "Artie, a real-time CDC data streaming platform, raised a $12M Series A led by Standard Capital with Y Combinator participating, per a funding profile page.",
+        "date": "2026-01",
+        "url": "https://startupintros.com/orgs/artie"
+      },
+      "signalStatus": "verified",
+      "email": {
+        "subject": "Product analytics after your Series A",
+        "body": "Hi Artie team,\n\nI'm writing because Artie recently raised a $12M Series A, and a growing engineering team usually means more questions about how customers actually use the dashboard.\n\nPostHog puts event analytics, session replay, feature flags, A/B testing and surveys in one tool, so you don't have to stitch several vendors together. It can also flag problems in the product and open pull requests for fixes.\n\nWould it be useful if I sent a short note on how teams set this up for a data product dashboard?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Attio",
+      "domain": "attio.com",
+      "fit": "Scale-up CRM SaaS with fast feature shipping that needs funnel analytics, experiments and replay in one tool.",
+      "signal": null,
+      "signalStatus": "none",
+      "email": {
+        "subject": "Analytics and experiments in one tool",
+        "body": "Hi Attio team,\n\nI'm writing because teams shipping CRM features quickly often end up with funnel analytics, session replay, feature flags and experiments spread across separate vendors, and the data rarely lines up.\n\nPostHog puts all of that in one product, with a data warehouse underneath. Product and engineering can see where users drop off, watch the sessions, and test a fix behind a flag without switching tools. We're also building a layer that flags problems and opens pull requests for fixes.\n\nWould it be useful if I sent over a short note on how teams consolidate their stack onto PostHog?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Mintlify",
+      "domain": "mintlify.com",
+      "fit": "Developer documentation SaaS at growth stage with a product-led motion needing usage analytics and A/B tests.",
+      "signal": {
+        "kind": "funding",
+        "summary": "Mintlify raised a $45M Series B at a $500M valuation, co-led by Andreessen Horowitz and Salesforce Ventures, and is expanding into knowledge infrastructure for AI agents via MCP support.",
+        "date": "2026-04",
+        "url": "https://stockanalysis.com/private/mintlify/"
+      },
+      "signalStatus": "verified",
+      "email": {
+        "subject": "Analytics after the Series B",
+        "body": "Hi Mintlify team,\n\nI'm writing because Mintlify just raised a $45M Series B and is expanding into knowledge infrastructure for AI agents via MCP support. Growth like that usually means more product surface to measure and more experiments to run.\n\nPostHog puts product analytics, session replay, feature flags, A/B tests and surveys in one tool, so a product-led team doesn't have to stitch together several vendors. It can also diagnose problems and open pull requests on its own.\n\nWould it be useful if I sent over a short note on how teams set this up for docs products?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Loops",
+      "domain": "loops.so",
+      "fit": "Small email-for-SaaS company with a lean product team likely to prefer one consolidated analytics stack.",
+      "signal": {
+        "kind": "launch",
+        "summary": "Loops launched Goals, a feature that lets users measure whether an email campaign drove a desired outcome, moving the product toward conversion and outcome analytics.",
+        "date": "2026-07",
+        "url": "https://www.producthunt.com/products/loops"
+      },
+      "signalStatus": "verified",
+      "email": {
+        "subject": "Loops Goals and product analytics",
+        "body": "Hi Loops team,\n\nI'm writing because Loops launched Goals, which lets users measure whether an email campaign drove a desired outcome. Tracking outcomes like that usually means joining events, replays, and experiments across a few separate tools.\n\nPostHog puts event analytics, session replay, feature flags, A/B tests, surveys, and a data warehouse in one place, so a small product team can check how Goals is used and test changes without stitching vendors together.\n\nWould it be useful if I sent over a short example of how teams set this up?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Trigger.dev",
+      "domain": "trigger.dev",
+      "fit": "Seed-stage developer platform with a small engineering team shipping often and needing feature flags and product analytics.",
+      "signal": {
+        "kind": "launch",
+        "summary": "Trigger.dev made its AI Agents platform (chat.agent, Sessions, AI Prompts) generally available in v4.5.0, moving it into end-user AI chat products where usage analytics, replay and experimentation matter.",
+        "date": "2026-07",
+        "url": "https://trigger.dev/changelog/v4-5-0"
+      },
+      "signalStatus": "verified",
+      "email": {
+        "subject": "AI Agents GA and product analytics",
+        "body": "Hi Trigger.dev team,\n\nI'm writing because your AI Agents platform (chat.agent, Sessions, AI Prompts) became generally available in v4.5.0. Once agents sit inside end-user chat products, you usually want to see how people actually use them, replay where they get stuck, and test prompt or flag changes safely.\n\nPostHog puts event analytics, session replay, feature flags, A/B testing and surveys in one tool, so a small engineering team doesn't have to stitch together several vendors.\n\nWould it be useful if I sent over a short example of how teams set this up for AI chat features?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Dub",
+      "domain": "dub.co",
+      "fit": "Small link-management SaaS with self-serve growth that benefits from funnels, experiments and replay.",
+      "signal": null,
+      "signalStatus": "none",
+      "email": {
+        "subject": "One tool for product analytics",
+        "body": "Hi Dub team,\n\nDub looks like a product-led SaaS where signup, link creation and upgrade flows matter a lot. PostHog puts funnels, session replay, feature flags, A/B tests and surveys in one place, so you can see where users drop off, watch what happened, and test a fix without stitching together separate vendors.\n\nWe're also building a layer that diagnoses problems and opens pull requests for fixes on its own.\n\nWould it be useful if I sent a short example of how a team your size sets up its first signup funnel?\n\n[Your name]"
+      }
+    },
+    {
+      "name": "Resend",
+      "domain": "resend.com",
+      "fit": "Developer email API company scaling fast with a product-led funnel needing activation analytics and experimentation.",
+      "signal": {
+        "kind": "launch",
+        "summary": "Resend published a blog post about the public launch of its new email editor, which is built on its open-source react.email library, a new user-facing product surface that could benefit from product analytics, session replay and experimentation.",
+        "date": "2026-07",
+        "url": "https://resend.com/blog/new-email-public-launch"
+      },
+      "signalStatus": "verified",
+      "email": {
+        "subject": "Resend's new email editor",
+        "body": "Hi Resend team,\n\nI'm writing because you recently published the public launch of your new email editor, built on react.email. A new product surface like that usually raises questions fast: where do people drop off, what do they actually use, and which changes help activation.\n\nPostHog puts event analytics, session replay, feature flags and A/B testing in one tool, so you can see how people use the editor and test changes to it without stitching together separate vendors.\n\nWould it be useful if I sent over a short note on how teams set this up for a product-led funnel?\n\n[Your name]"
+      }
+    }
+  ]
+}
