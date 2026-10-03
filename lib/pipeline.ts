@@ -61,7 +61,7 @@ export async function understand(input: string, emit: Emit, signal?: AbortSignal
   const page = pageText(html);
   const domain = url.hostname.replace(/^www\./, "");
   if (page.text.length < 80) throw new InputError("Could not read enough text from that homepage");
-  emit({ type: "step", message: `Read ${wordCount(page.text).toLocaleString("en-US")} words from ${domain}` });
+  emit({ type: "step", message: `Read ${domain}` });
   emit({ type: "step", message: "Working out who buys it..." });
 
   const res = await anthropic().messages.parse(
