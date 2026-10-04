@@ -1,50 +1,49 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
-  --font-display: var(--font-instrument), Georgia, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --color-bg: var(--bg);
-  --color-panel: var(--panel);
-  --color-sunk: var(--sunk);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
   --color-line: var(--line);
   --color-ink: var(--ink);
   --color-muted: var(--muted);
-  --color-accent: var(--accent);
-  --color-accent-ink: var(--accent-ink);
-  --color-accent-soft: var(--accent-soft);
-  --color-good: var(--good);
-  --color-good-soft: var(--good-soft);
+  --color-faint: var(--faint);
+  --color-blue: var(--blue);
+  --color-blue-soft: var(--blue-soft);
+  --color-blue-ink: var(--blue-ink);
 }
 
 :root {
-  --bg: #f7f3ec;
-  --panel: #fffdf9;
-  --sunk: #f0ebe2;
-  --line: #e5ddd0;
-  --ink: #1d1a16;
-  --muted: #6f675c;
-  --accent: #e8572a;
-  --accent-ink: #ffffff;
-  --accent-soft: #fbe5da;
-  --good: #2f7a4f;
-  --good-soft: #e3f0e6;
+  --bg: #ffffff;
+  --surface: #f6f6f7;
+  --raised: #ffffff;
+  --line: #ececee;
+  --ink: #0a0a0a;
+  --muted: #6b6b73;
+  --faint: #a1a1aa;
+  --blue: #2563ff;
+  --blue-soft: #eef3ff;
+  --blue-ink: #1d4fd8;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -8px rgb(0 0 0 / 0.08);
+  --shadow-lg: 0 2px 4px rgb(10 20 50 / 0.04), 0 30px 80px -20px rgb(10 30 80 / 0.28);
   color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #151311;
-    --panel: #1c1a17;
-    --sunk: #12100e;
-    --line: #2f2b26;
-    --ink: #f1ece4;
-    --muted: #a1988b;
-    --accent: #f0683c;
-    --accent-ink: #1d1a16;
-    --accent-soft: #3a2018;
-    --good: #72c995;
-    --good-soft: #16281d;
+    --bg: #0b0b0c;
+    --surface: #151517;
+    --raised: #18181b;
+    --line: #26262a;
+    --ink: #f4f4f5;
+    --muted: #a1a1aa;
+    --faint: #6b6b73;
+    --blue: #3b76ff;
+    --blue-soft: #14203d;
+    --blue-ink: #8fb0ff;
+    --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px -8px rgb(0 0 0 / 0.5);
+    --shadow-lg: 0 2px 4px rgb(0 0 0 / 0.3), 0 30px 80px -20px rgb(0 0 0 / 0.7);
     color-scheme: dark;
   }
 }
@@ -54,14 +53,61 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  font-feature-settings: "cv11", "ss01";
 }
 
 ::selection {
-  background: var(--accent-soft);
+  background: var(--blue-soft);
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 2px;
 }
 
 textarea.grow {
   field-sizing: content;
+}
+
+.shadow-soft {
+  box-shadow: var(--shadow);
+}
+.shadow-float {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Primary blue pill: a light top edge and a soft colored shadow. */
+.btn-blue {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.28), 0 1px 2px rgb(37 99 255 / 0.3), 0 6px 16px -4px rgb(37 99 255 / 0.45);
+}
+.btn-blue:hover {
+  filter: brightness(1.06);
+}
+
+/* Sky backdrop for the product shot, pure CSS. */
+.sky {
+  background:
+    radial-gradient(60% 50% at 20% 15%, rgb(255 255 255 / 0.9), transparent 70%),
+    radial-gradient(50% 40% at 85% 25%, rgb(255 255 255 / 0.7), transparent 70%),
+    radial-gradient(70% 60% at 50% 110%, #9ec3ff, transparent 70%),
+    linear-gradient(180deg, #cfe2ff 0%, #8fb8ff 55%, #4f86ff 100%);
+}
+@media (prefers-color-scheme: dark) {
+  .sky {
+    background:
+      radial-gradient(60% 50% at 20% 10%, rgb(80 120 255 / 0.35), transparent 70%),
+      radial-gradient(70% 60% at 50% 110%, rgb(37 99 255 / 0.45), transparent 70%),
+      linear-gradient(180deg, #0f1730 0%, #10224d 60%, #173a8f 100%);
+  }
+}
+
+.wordmark-fade {
+  background: linear-gradient(180deg, var(--line) 10%, transparent 85%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @keyframes rise {
@@ -70,19 +116,28 @@ textarea.grow {
     transform: translateY(6px);
   }
 }
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 @keyframes pulse {
   50% {
-    opacity: 0.35;
+    opacity: 0.4;
   }
 }
 .rise {
-  animation: rise 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: rise 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.spin {
+  animation: spin 0.9s linear infinite;
 }
 .pulse {
-  animation: pulse 1.2s ease-in-out infinite;
+  animation: pulse 1.4s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .rise,
+  .spin,
   .pulse {
     animation: none;
   }
