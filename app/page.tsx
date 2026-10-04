@@ -1,6 +1,6 @@
 import demo from "../data/demo-run.json";
 import type { Prospect } from "../lib/pipeline";
-import { pillBlack, pillBlue, pillWhite } from "./pills";
+import { pillBlack, pillAccent, pillWhite } from "./pills";
 import { ProductShot, SignalLine, Wordmark, type DemoRun } from "./ui";
 
 const run = demo as DemoRun;
@@ -21,7 +21,7 @@ const steps: { title: string; body: string; ui: React.ReactNode }[] = [
     ui: (
       <div className="shadow-soft flex w-full max-w-xs items-center gap-2 rounded-full border border-line bg-raised p-1.5 pl-4 text-sm">
         <span className="flex-1 truncate text-ink">{run.domain}</span>
-        <span className={`${pillBlue} px-3.5 py-1.5 text-xs`}>Draft</span>
+        <span className={`${pillAccent} px-3.5 py-1.5 text-xs`}>Draft</span>
       </div>
     ),
   },
@@ -33,10 +33,10 @@ const steps: { title: string; body: string; ui: React.ReactNode }[] = [
         <div className="flex items-center gap-2.5">
           <span className="grid size-6 place-items-center rounded-md border border-line bg-surface text-xs font-semibold">{second.name.charAt(0).toUpperCase()}</span>
           <span className="flex-1 truncate text-sm font-medium">{second.name}</span>
-          <span className="grid size-4 place-items-center rounded-full bg-blue text-[9px] text-white">✓</span>
+          <span className="grid size-4 place-items-center rounded-full bg-accent text-[9px] text-white">✓</span>
         </div>
         <p className="mt-2 line-clamp-2 text-xs leading-snug text-muted">{second.signal?.summary}</p>
-        <span className="mt-2 inline-flex rounded-full bg-blue-soft px-2 py-0.5 text-[11px] font-medium text-blue-ink">Verified · {host(second.signal!.url)}</span>
+        <span className="mt-2 inline-flex rounded-full bg-accent-soft px-2 py-0.5 text-[11px] font-medium text-accent-ink">Verified · {host(second.signal!.url)}</span>
       </div>
     ),
   },
@@ -79,7 +79,7 @@ export default function Landing() {
 
       <section className="mx-auto max-w-3xl px-4 pb-14 pt-16 text-center sm:pt-24">
         <span className="inline-flex items-center gap-2 rounded-full border border-line bg-raised px-3 py-1 text-xs text-muted shadow-[0_1px_2px_rgb(0_0_0/0.04)]">
-          <span className="size-1.5 rounded-full bg-blue" />
+          <span className="size-1.5 rounded-full bg-accent" />
           Open source · Drafts only, nothing is sent
         </span>
         <h1 className="mt-6 text-[40px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[62px]">
@@ -88,7 +88,7 @@ export default function Landing() {
         </h1>
         <p className="mx-auto mt-5 max-w-lg text-lg text-muted">Paste your URL. Get 10 researched prospects and first emails in your voice, ready to approve.</p>
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <a href="/app" className={pillBlue}>
+          <a href="/app" className={pillAccent}>
             Try the demo
           </a>
           <a href="#how" className={`${pillWhite} px-5 py-2.5 text-[15px]`}>
@@ -153,7 +153,7 @@ export default function Landing() {
         <div className="rounded-[28px] bg-surface px-6 py-16 text-center sm:py-20">
           <h2 className="text-3xl font-semibold tracking-[-0.035em] sm:text-[40px]">See a real run in a minute</h2>
           <p className="mt-3 text-muted">No signup. It replays a recorded run.</p>
-          <a href="/app" className={`${pillBlue} mt-8`}>
+          <a href="/app" className={`${pillAccent} mt-8`}>
             Try the demo
           </a>
         </div>

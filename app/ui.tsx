@@ -2,7 +2,7 @@
 
 import { useEffect, useReducer, useRef, useState } from "react";
 import type { PipelineEvent, Profile, Prospect, Stats } from "../lib/pipeline";
-import { pillBlack, pillBlue, pillWhite } from "./pills";
+import { pillBlack, pillAccent, pillWhite } from "./pills";
 
 export type DemoRun = { domain: string; durationMs: number; events: { t: number; event: PipelineEvent }[] };
 
@@ -142,7 +142,7 @@ function StatusIcon({ status }: { status: Icon }) {
     );
   if (status === "signal")
     return (
-      <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-full bg-blue text-white">
+      <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-full bg-accent text-white">
         <Check className="size-2.5" />
       </span>
     );
@@ -158,9 +158,9 @@ function VerifiedChip({ url }: { url: string }) {
       target="_blank"
       rel="noreferrer noopener"
       title="This URL came back from the web search, so you can check the claim."
-      className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-blue-soft py-1 pl-1.5 pr-2.5 text-xs font-medium text-blue-ink transition hover:brightness-95"
+      className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-accent-soft py-1 pl-1.5 pr-2.5 text-xs font-medium text-accent-ink transition hover:brightness-95"
     >
-      <span className="grid size-4 shrink-0 place-items-center rounded-full bg-blue text-white">
+      <span className="grid size-4 shrink-0 place-items-center rounded-full bg-accent text-white">
         <Check className="size-2.5" />
       </span>
       <span className="truncate">Verified · {host(url)}</span>
@@ -219,7 +219,7 @@ export function Workspace({ live, demo }: { live: boolean; demo: DemoRun }) {
     <div className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
       <div className="flex items-center justify-between gap-3 rounded-full border border-line bg-surface py-1.5 pl-4 pr-1.5">
         <p className="flex min-w-0 items-center gap-2 text-sm">
-          <span aria-hidden className={`size-1.5 shrink-0 rounded-full ${busy ? "pulse bg-blue" : "bg-faint"}`} />
+          <span aria-hidden className={`size-1.5 shrink-0 rounded-full ${busy ? "pulse bg-accent" : "bg-faint"}`} />
           <span className="truncate text-muted">
             {mode === "demo" ? "Recorded run" : "Live run"} · <span className="font-medium text-ink">{s.domain}</span>
           </span>
@@ -264,7 +264,7 @@ function Start(props: {
           props.onStart(!props.live);
         }}
       >
-        <div className="shadow-float flex items-center gap-2 rounded-[28px] border border-line bg-raised p-2 pl-5 transition focus-within:border-blue/40">
+        <div className="shadow-float flex items-center gap-2 rounded-[28px] border border-line bg-raised p-2 pl-5 transition focus-within:border-accent/40">
           <label className="sr-only" htmlFor="url">
             Your website
           </label>
@@ -280,7 +280,7 @@ function Start(props: {
             autoComplete="url"
             className="min-w-0 flex-1 bg-transparent py-3 text-lg outline-none placeholder:text-faint focus-visible:outline-none"
           />
-          <button className={`${pillBlue} shrink-0`}>
+          <button className={`${pillAccent} shrink-0`}>
             {props.live ? "Draft" : "Play demo"}
             <svg aria-hidden viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 8h10M9 4l4 4-4 4" />
@@ -296,7 +296,7 @@ function Start(props: {
             autoFocus
             aria-label="Your writing samples"
             placeholder="Paste 1 to 3 emails or posts you wrote. Drafts will sound like you."
-            className="rise mt-3 w-full rounded-2xl border border-line bg-surface p-4 text-sm leading-relaxed outline-none focus:border-blue/40"
+            className="rise mt-3 w-full rounded-2xl border border-line bg-surface p-4 text-sm leading-relaxed outline-none focus:border-accent/40"
           />
         )}
       </form>
@@ -360,7 +360,7 @@ export function Feed({ state, still = false }: { state: Pick<State, "phase" | "s
                       <>
                         <p className="line-clamp-2 text-ink/80">{r.message.replace(/^Signal found:\s*/, "")}</p>
                         {r.url && (
-                          <a href={r.url} target="_blank" rel="noreferrer noopener" className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-ink hover:underline">
+                          <a href={r.url} target="_blank" rel="noreferrer noopener" className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-accent-ink hover:underline">
                             <Check className="size-3" />
                             {host(r.url)}
                           </a>
@@ -396,7 +396,7 @@ function Waiting() {
 function Review({ profile, demo, onContinue }: { profile: Profile; demo: boolean; onContinue: (p: Profile) => void }) {
   const [summary, setSummary] = useState(profile.summary);
   const [icp, setIcp] = useState(profile.icp);
-  const field = "grow mt-2 block min-h-24 w-full resize-none rounded-2xl border border-line bg-surface p-4 text-[15px] font-normal leading-relaxed outline-none transition focus:border-blue/40 focus:bg-raised";
+  const field = "grow mt-2 block min-h-24 w-full resize-none rounded-2xl border border-line bg-surface p-4 text-[15px] font-normal leading-relaxed outline-none transition focus:border-accent/40 focus:bg-raised";
   return (
     <form
       className="rise"
@@ -416,7 +416,7 @@ function Review({ profile, demo, onContinue }: { profile: Profile; demo: boolean
         <textarea className={field} value={icp} onChange={(e) => setIcp(e.target.value)} minLength={10} maxLength={3000} required />
       </label>
       <div className="mt-6 flex flex-wrap items-center gap-4">
-        <button className={pillBlue}>Looks right, find prospects</button>
+        <button className={pillAccent}>Looks right, find prospects</button>
         {demo && <p className="text-sm text-muted">Recorded run: edits will not change results.</p>}
       </div>
     </form>
@@ -485,7 +485,7 @@ export function Queue({ cards, stats, total, onChange, still = false }: { cards:
         </div>
         <p className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
           <span className={stat}>
-            <span className="size-1.5 rounded-full bg-blue" />
+            <span className="size-1.5 rounded-full bg-accent" />
             <span className="font-medium text-ink">{counts.verified}</span> verified
           </span>
           <span className={stat}>
@@ -543,7 +543,7 @@ function ProspectCard({ card, onChange, still }: { card: Card; onChange: (patch:
     );
   const edit = (email: Partial<Card["email"]>) => onChange({ email: { ...card.email, ...email } });
   return (
-    <li className={`rounded-3xl border bg-raised p-5 transition-[border-color,box-shadow] duration-300 sm:p-6 ${approved ? "border-blue/50 shadow-[0_0_0_4px_var(--blue-soft)]" : "border-line"} ${still ? "" : "rise"}`}>
+    <li className={`rounded-3xl border bg-raised p-5 transition-[border-color,box-shadow] duration-300 sm:p-6 ${approved ? "border-accent/50 shadow-[0_0_0_4px_var(--accent-soft)]" : "border-line"} ${still ? "" : "rise"}`}>
       <div className="flex items-center gap-3">
         <Avatar name={card.name} />
         <div className="min-w-0 flex-1">
@@ -578,8 +578,8 @@ function ProspectCard({ card, onChange, still }: { card: Card; onChange: (patch:
         <div className="mt-4 flex items-center gap-2">
           {approved ? (
             <>
-              <span className="rise inline-flex items-center gap-1.5 text-sm font-medium text-blue-ink">
-                <span className="grid size-5 place-items-center rounded-full bg-blue text-white">
+              <span className="rise inline-flex items-center gap-1.5 text-sm font-medium text-accent-ink">
+                <span className="grid size-5 place-items-center rounded-full bg-accent text-white">
                   <Check className="size-3" />
                 </span>
                 Approved
@@ -622,7 +622,7 @@ export function FillDemo({ email, password }: { email: string; password: string 
   return (
     <button
       type="button"
-      className="font-medium text-blue-ink hover:underline"
+      className="font-medium text-accent-ink hover:underline"
       onClick={() => {
         const form = document.getElementById("login") as HTMLFormElement | null;
         if (!form) return;

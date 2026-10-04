@@ -6,7 +6,7 @@ import { FillDemo, Wordmark } from "../ui";
 
 export const dynamic = "force-dynamic";
 
-const field = "mt-1.5 block w-full rounded-xl border border-line bg-raised px-3.5 py-2.5 text-[15px] outline-none transition focus:border-blue/50 focus:ring-4 focus:ring-blue-soft";
+const field = "mt-1.5 block w-full rounded-xl border border-line bg-raised px-3.5 py-2.5 text-[15px] outline-none transition focus:border-accent/50 focus:ring-4 focus:ring-accent-soft";
 
 export default async function Login({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   if (hasSession((await cookies()).get(SESSION_COOKIE)?.value)) redirect("/app");
