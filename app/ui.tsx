@@ -98,6 +98,80 @@ const host = (url: string) => {
   }
 };
 
+// ---------- Shared bits ----------
+
+const pill = "inline-flex items-center justify-center gap-2 rounded-full font-medium transition active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40";
+export const pillBlack = `${pill} bg-ink px-4 py-2 text-sm text-bg hover:opacity-85`;
+export const pillBlue = `${pill} btn-blue px-5 py-2.5 text-[15px]`;
+export const pillWhite = `${pill} border border-line bg-raised px-4 py-2 text-sm text-ink shadow-[0_1px_2px_rgb(0_0_0/0.04)] hover:bg-surface`;
+
+export function Wordmark() {
+  return (
+    <span className="inline-flex items-center gap-2 text-[17px] font-semibold tracking-[-0.02em]">
+      <svg aria-hidden viewBox="0 0 32 32" className="size-6">
+        <rect width="32" height="32" rx="9" className="fill-ink" />
+        <path d="M10 17.5 14 21l8-10" fill="none" className="stroke-bg" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+      draftit
+    </span>
+  );
+}
+
+function Check({ className = "size-3.5" }: { className?: string }) {
+  return (
+    <svg aria-hidden viewBox="0 0 16 16" className={className} fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="m3.5 8.5 3 3 6-7" />
+    </svg>
+  );
+}
+
+function Avatar({ name }: { name: string }) {
+  return (
+    <span aria-hidden className="grid size-7 shrink-0 place-items-center rounded-lg border border-line bg-surface text-[13px] font-semibold text-ink">
+      {name.trim().charAt(0).toUpperCase()}
+    </span>
+  );
+}
+
+type Icon = CompanyStatus | "active" | "done";
+
+function StatusIcon({ status }: { status: Icon }) {
+  if (status === "searching" || status === "drafting" || status === "active")
+    return <span aria-hidden className="spin size-4 shrink-0 rounded-full border-2 border-line border-t-ink" />;
+  if (status === "done")
+    return (
+      <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-full bg-ink text-bg">
+        <Check className="size-2.5" />
+      </span>
+    );
+  if (status === "signal")
+    return (
+      <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-full bg-blue text-white">
+        <Check className="size-2.5" />
+      </span>
+    );
+  if (status === "failed" || status === "unverified")
+    return <span aria-hidden className="grid size-4 shrink-0 place-items-center rounded-full border border-faint text-[10px] font-bold leading-none text-muted">!</span>;
+  return <span aria-hidden className="size-4 shrink-0 rounded-full border border-dashed border-faint" />;
+}
+
+function VerifiedChip({ url }: { url: string }) {
+  return (
+    <a
+      href={url}
+      target="_blank"
+      rel="noreferrer noopener"
+      title="This URL came back from the web search, so you can check the claim."
+      className="inline-flex max-w-full items-center gap-1.5 rounded-full bg-blue-soft py-1 pl-1.5 pr-2.5 text-xs font-medium text-blue-ink transition hover:brightness-95"
+    >
+      <span className="grid size-4 shrink-0 place-items-center rounded-full bg-blue text-white">
+        <Check className="size-2.5" />
+      </span>
+      <span className="truncate">Verified · {host(url)}</span>
+    </a>
+  );
+}
+
 // ---------- App ----------
 
 export function Workspace({ live, demo }: { live: boolean; demo: DemoRun }) {
@@ -144,23 +218,26 @@ export function Workspace({ live, demo }: { live: boolean; demo: DemoRun }) {
   if (s.phase === "idle")
     return <Start live={live} url={url} setUrl={setUrl} voice={voice} setVoice={setVoice} onStart={start} demoDomain={demo.domain} />;
 
+  const busy = s.phase === "understanding" || s.phase === "running";
   return (
-    <div className="mx-auto max-w-6xl px-4 pb-24 sm:px-8">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line py-4">
-        <p className="min-w-0 text-sm text-muted">
-          {mode === "demo" ? "Replaying a recorded run for " : "Live run for "}
-          <span className="font-medium text-ink">{s.domain}</span>
+    <div className="mx-auto max-w-6xl px-4 pb-24 sm:px-6">
+      <div className="flex items-center justify-between gap-3 rounded-full border border-line bg-surface py-1.5 pl-4 pr-1.5">
+        <p className="flex min-w-0 items-center gap-2 text-sm">
+          <span aria-hidden className={`size-1.5 shrink-0 rounded-full ${busy ? "pulse bg-blue" : "bg-faint"}`} />
+          <span className="truncate text-muted">
+            {mode === "demo" ? "Recorded run" : "Live run"} · <span className="font-medium text-ink">{s.domain}</span>
+          </span>
         </p>
-        <button onClick={reset} className="text-sm text-muted underline-offset-4 hover:text-ink hover:underline">
-          Start over
+        <button onClick={reset} className={pillWhite}>
+          New run
         </button>
       </div>
-      <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-12">
+      <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-14">
         <Feed state={s} />
         <section aria-label="Approval queue" className="min-w-0">
           {s.phase === "understanding" && <Waiting />}
           {s.phase === "review" && s.profile && <Review profile={s.profile} demo={mode === "demo"} onContinue={proceed} />}
-          {s.phase === "error" && <p className="rounded-lg border border-line bg-panel p-4 text-sm">{s.error}</p>}
+          {s.phase === "error" && <p className="rounded-2xl border border-line bg-surface p-4 text-sm">{s.error}</p>}
           {(s.phase === "running" || s.phase === "done" || (s.phase === "error" && s.cards.length > 0)) && (
             <Queue cards={s.cards} stats={s.stats} total={s.rows.length} onChange={(domain, patch) => dispatch({ type: "card", domain, patch })} />
           )}
@@ -179,18 +256,19 @@ function Start(props: {
   onStart: (demo: boolean) => void;
   demoDomain: string;
 }) {
+  const [voiceOpen, setVoiceOpen] = useState(false);
   return (
-    <div className="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-8 sm:pt-28">
-      <h1 className="font-display text-5xl leading-[1.02] tracking-tight sm:text-6xl">Who should you email this week?</h1>
-      <p className="mt-4 text-lg text-muted">Paste your site. The agent finds ten companies that would buy, a recent reason for each, and drafts a first email you can approve.</p>
+    <div className="mx-auto max-w-2xl px-4 pb-24 pt-20 text-center sm:pt-32">
+      <h1 className="text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">Who should you email this week?</h1>
+      <p className="mt-3 text-muted">Paste your site. Get ten researched prospects and first drafts.</p>
       <form
-        className="mt-10"
+        className="mt-10 text-left"
         onSubmit={(e) => {
           e.preventDefault();
           props.onStart(!props.live);
         }}
       >
-        <div className="flex flex-col gap-2 rounded-2xl border border-line bg-panel p-2 shadow-[0_1px_0_rgba(0,0,0,0.03)] focus-within:border-ink/30 sm:flex-row">
+        <div className="shadow-float flex items-center gap-2 rounded-[28px] border border-line bg-raised p-2 pl-5 transition focus-within:border-blue/40">
           <label className="sr-only" htmlFor="url">
             Your website
           </label>
@@ -204,94 +282,102 @@ function Start(props: {
             maxLength={300}
             placeholder="yourstartup.com"
             autoComplete="url"
-            className="min-w-0 flex-1 bg-transparent px-3 py-3 text-lg outline-none placeholder:text-muted/60"
+            className="min-w-0 flex-1 bg-transparent py-3 text-lg outline-none placeholder:text-faint focus-visible:outline-none"
           />
-          <button className="rounded-xl bg-accent px-5 py-3 font-medium text-accent-ink transition active:scale-[0.98] hover:brightness-105">
-            {props.live ? "Draft my pipeline" : "Watch the demo run"}
+          <button className={`${pillBlue} shrink-0`}>
+            {props.live ? "Draft" : "Play demo"}
+            <svg aria-hidden viewBox="0 0 16 16" className="size-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
           </button>
         </div>
-        {props.live ? (
-          <details className="group mt-4">
-            <summary className="cursor-pointer list-none text-sm text-muted hover:text-ink">
-              <span className="mr-1 inline-block transition group-open:rotate-90">›</span> Add your voice (optional)
-            </summary>
-            <textarea
-              value={props.voice}
-              onChange={(e) => props.setVoice(e.target.value)}
-              maxLength={6000}
-              rows={5}
-              placeholder="Paste 1 to 3 emails or posts you have written. Drafts will match how you write."
-              className="mt-3 w-full rounded-xl border border-line bg-panel p-3 text-sm leading-relaxed outline-none focus:border-ink/30"
-            />
-          </details>
-        ) : (
-          <p className="mt-4 text-sm text-muted">Live runs are off on this deployment. This replays a real recorded run on {props.demoDomain}.</p>
+        {props.live && voiceOpen && (
+          <textarea
+            value={props.voice}
+            onChange={(e) => props.setVoice(e.target.value)}
+            maxLength={6000}
+            rows={5}
+            autoFocus
+            aria-label="Your writing samples"
+            placeholder="Paste 1 to 3 emails or posts you wrote. Drafts will sound like you."
+            className="rise mt-3 w-full rounded-2xl border border-line bg-surface p-4 text-sm leading-relaxed outline-none focus:border-blue/40"
+          />
         )}
       </form>
-      {props.live && (
-        <button onClick={() => props.onStart(true)} className="mt-8 text-sm font-medium text-accent underline-offset-4 hover:underline">
-          Or watch a recorded demo run →
-        </button>
-      )}
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-muted">
+        {props.live ? (
+          <>
+            <button onClick={() => setVoiceOpen((v) => !v)} className="hover:text-ink">
+              {voiceOpen ? "Hide voice samples" : "+ Add your voice"}
+            </button>
+            <span aria-hidden className="text-faint">·</span>
+            <button onClick={() => props.onStart(true)} className="hover:text-ink">
+              Watch a recorded run
+            </button>
+          </>
+        ) : (
+          <span>Live runs are off here. This plays a real recorded run on {props.demoDomain}.</span>
+        )}
+      </div>
     </div>
   );
 }
 
 // ---------- Feed ----------
 
-function Dot({ status }: { status: CompanyStatus | "active" | "done" }) {
-  const cls =
-    status === "signal" || status === "done"
-      ? "bg-good"
-      : status === "searching" || status === "drafting" || status === "active"
-        ? "bg-accent pulse"
-        : status === "unverified" || status === "failed"
-          ? "bg-accent"
-          : "bg-line";
-  return <span aria-hidden className={`mt-[7px] size-2 shrink-0 rounded-full ${cls}`} />;
-}
-
 export function Feed({ state, still = false }: { state: Pick<State, "phase" | "steps" | "rows" | "cards">; still?: boolean }) {
   const drafted = new Set(state.cards.map((c) => c.domain));
   const busy = state.phase === "understanding" || state.phase === "running";
   const working = busy && (state.phase === "understanding" || state.rows.length === 0);
+  const anim = still ? "" : "rise";
   return (
-    <section aria-label="Live research feed" className="min-w-0">
-      <h2 className="text-xs font-medium uppercase tracking-[0.14em] text-muted">Research feed</h2>
-      <ol className="mt-4 space-y-2.5 font-mono text-[13px] leading-5">
-        {state.steps.map((step, i) => (
-          <li key={i} className={`flex gap-3 ${still ? "" : "rise"}`}>
-            <Dot status={working && i === state.steps.length - 1 ? "active" : "done"} />
-            <span className={working && i === state.steps.length - 1 ? "text-ink" : "text-muted"}>{step}</span>
-          </li>
-        ))}
+    <section aria-label="Research feed" className="min-w-0">
+      <h2 className="text-sm font-medium">Research</h2>
+      <ol className="mt-4 space-y-2.5 text-sm">
+        {state.steps.map((step, i) => {
+          const active = working && i === state.steps.length - 1;
+          return (
+            <li key={i} className={`flex items-center gap-3 ${anim}`}>
+              <StatusIcon status={active ? "active" : "done"} />
+              <span className={active ? "text-ink" : "text-muted"}>{step}</span>
+            </li>
+          );
+        })}
       </ol>
       {state.rows.length > 0 && (
-        <ol className="mt-6 divide-y divide-line border-y border-line">
+        <ol className="mt-6 space-y-1">
           {state.rows.map((r) => {
-            const st = drafted.has(r.domain) ? "done" : r.status;
+            const st: Icon = drafted.has(r.domain) ? "done" : r.status;
             const found = (r.status === "drafting" ? r.prior : r.status) ?? r.status;
+            const label = st === "done" ? "Drafted" : st === "drafting" ? "Drafting" : st === "searching" ? "Searching" : st === "queued" ? "Queued" : "";
             return (
-              <li key={r.domain} className={`flex gap-3 py-3 ${still ? "" : "rise"}`}>
-                <Dot status={st} />
-                <div className="min-w-0 flex-1">
-                  <p className="flex items-baseline justify-between gap-3">
-                    <span className="truncate font-medium">{r.name}</span>
-                    <span className="shrink-0 font-mono text-xs text-muted">{st === "done" ? "Drafted" : st === "drafting" ? "Drafting..." : r.domain}</span>
-                  </p>
-                  <p key={r.message} className={`mt-0.5 text-sm leading-snug ${found === "signal" ? "text-ink" : "text-muted"} ${still ? "" : "rise"}`}>
-                    {r.message}
-                    {r.url && found === "signal" && (
-                      <>
-                        {" "}
-                        <a href={r.url} target="_blank" rel="noreferrer noopener" className="whitespace-nowrap text-good underline-offset-2 hover:underline">
-                          {host(r.url)} ↗
-                        </a>
-                      </>
-                    )}
-                    {r.url && found === "unverified" && <span className="whitespace-nowrap font-mono text-xs"> ({host(r.url)}, not retrieved)</span>}
-                  </p>
+              <li key={r.domain} className={`rounded-xl px-2 py-2.5 transition-colors ${st === "searching" || st === "drafting" ? "bg-surface" : ""} ${anim}`}>
+                <div className="flex items-center gap-3">
+                  <Avatar name={r.name} />
+                  <span className="min-w-0 flex-1 truncate text-sm font-medium">{r.name}</span>
+                  <span className="shrink-0 text-xs text-muted">{label}</span>
+                  <StatusIcon status={found === "signal" && st === "done" ? "signal" : st} />
                 </div>
+                {(found === "signal" || found === "none" || found === "unverified" || found === "failed") && (
+                  <div key={r.message} className={`mt-1.5 pl-10 text-[13px] leading-snug ${anim}`}>
+                    {found === "signal" ? (
+                      <>
+                        <p className="line-clamp-2 text-ink/80">{r.message.replace(/^Signal found:\s*/, "")}</p>
+                        {r.url && (
+                          <a href={r.url} target="_blank" rel="noreferrer noopener" className="mt-1 inline-flex items-center gap-1 text-xs font-medium text-blue-ink hover:underline">
+                            <Check className="size-3" />
+                            {host(r.url)}
+                          </a>
+                        )}
+                      </>
+                    ) : (
+                      <p className="text-muted">
+                        {r.message}
+                        {found === "unverified" && r.url ? ` (${host(r.url)} was never retrieved)` : ""}
+                      </p>
+                    )}
+                  </div>
+                )}
               </li>
             );
           })}
@@ -303,7 +389,7 @@ export function Feed({ state, still = false }: { state: Pick<State, "phase" | "s
 
 function Waiting() {
   return (
-    <div className="rounded-2xl border border-dashed border-line p-8 text-center text-sm text-muted">
+    <div className="rounded-2xl border border-line bg-surface p-8 text-center text-sm text-muted">
       <span className="pulse">Reading your site and working out who buys from you...</span>
     </div>
   );
@@ -314,7 +400,7 @@ function Waiting() {
 function Review({ profile, demo, onContinue }: { profile: Profile; demo: boolean; onContinue: (p: Profile) => void }) {
   const [summary, setSummary] = useState(profile.summary);
   const [icp, setIcp] = useState(profile.icp);
-  const field = "grow mt-2 block min-h-24 w-full resize-none rounded-xl border border-line bg-panel p-3.5 text-[15px] leading-relaxed outline-none focus:border-ink/30";
+  const field = "grow mt-2 block min-h-24 w-full resize-none rounded-2xl border border-line bg-surface p-4 text-[15px] font-normal leading-relaxed outline-none transition focus:border-blue/40 focus:bg-raised";
   return (
     <form
       className="rise"
@@ -323,20 +409,20 @@ function Review({ profile, demo, onContinue }: { profile: Profile; demo: boolean
         onContinue({ ...profile, summary: summary.trim(), icp: icp.trim() });
       }}
     >
-      <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">Check before we search</p>
-      <h2 className="mt-2 font-display text-3xl leading-tight">Is this who buys {profile.name}?</h2>
+      <h2 className="text-2xl font-semibold tracking-[-0.03em]">Is this who buys {profile.name}?</h2>
+      <p className="mt-1 text-sm text-muted">Fix anything that is off. The search uses this.</p>
       <label className="mt-6 block text-sm font-medium">
         What you sell
         <textarea className={field} value={summary} onChange={(e) => setSummary(e.target.value)} minLength={10} maxLength={2000} required />
       </label>
       <label className="mt-5 block text-sm font-medium">
         Who buys it
-        <textarea className={`${field} font-normal`} value={icp} onChange={(e) => setIcp(e.target.value)} minLength={10} maxLength={3000} required />
+        <textarea className={field} value={icp} onChange={(e) => setIcp(e.target.value)} minLength={10} maxLength={3000} required />
       </label>
-      {demo && <p className="mt-3 text-sm text-muted">This is a recording, so edits here will not change the results.</p>}
-      <button className="mt-6 w-full rounded-xl bg-accent px-5 py-3 font-medium text-accent-ink transition active:scale-[0.98] hover:brightness-105 sm:w-auto">
-        Looks right, find prospects
-      </button>
+      <div className="mt-6 flex flex-wrap items-center gap-4">
+        <button className={pillBlue}>Looks right, find prospects</button>
+        {demo && <p className="text-sm text-muted">Recorded run: edits will not change results.</p>}
+      </div>
     </form>
   );
 }
@@ -378,45 +464,49 @@ export function Queue({ cards, stats, total, onChange, still = false }: { cards:
     setTimeout(() => setCopied(false), 1600);
   }
 
+  const stat = "inline-flex items-center gap-1.5 rounded-full border border-line bg-raised px-2.5 py-1";
   return (
     <div>
-      <div className={still ? "" : "sticky top-0 z-10 -mx-1 bg-bg px-1 pt-3"}>
-      <div className="flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
-        <div>
-          <h2 className="text-xs font-medium uppercase tracking-[0.14em] text-muted">Approval queue</h2>
-          <p className="mt-1.5 text-sm">
-            <span className="font-medium">{approved.length}</span> approved
-            <span className="text-muted">
-              {" "}
-              of {cards.length}
-              {total > cards.length ? ` drafted, ${total - cards.length} in progress` : ""}
-            </span>
-          </p>
-        </div>
-        {!still && (
-          <div className="flex gap-2">
-            <button onClick={copy} disabled={!approved.length} className="rounded-lg border border-line bg-panel px-3 py-1.5 text-sm transition hover:border-ink/30 disabled:opacity-40">
-              {copied ? "Copied" : "Copy approved"}
-            </button>
-            <button onClick={() => exportCsv(approved)} disabled={!approved.length} className="rounded-lg border border-line bg-panel px-3 py-1.5 text-sm transition hover:border-ink/30 disabled:opacity-40">
-              Export CSV
-            </button>
+      <div className={still ? "" : "sticky top-0 z-10 -mx-2 bg-bg/90 px-2 pb-3 pt-3 backdrop-blur"}>
+        <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-3">
+          <div>
+            <h2 className="text-sm font-medium">Approval queue</h2>
+            <p className="mt-0.5 text-sm text-muted">
+              <span className="font-medium text-ink">{approved.length}</span> approved of {cards.length}
+              {total > cards.length ? `, ${total - cards.length} in progress` : ""}
+            </p>
           </div>
-        )}
+          {!still && (
+            <div className="flex gap-2">
+              <button onClick={copy} disabled={!approved.length} className={pillWhite}>
+                {copied ? "Copied" : "Copy"}
+              </button>
+              <button onClick={() => exportCsv(approved)} disabled={!approved.length} className={pillWhite}>
+                Export CSV
+              </button>
+            </div>
+          )}
+        </div>
+        <p className="mt-3 flex flex-wrap gap-2 text-xs text-muted">
+          <span className={stat}>
+            <span className="size-1.5 rounded-full bg-blue" />
+            <span className="font-medium text-ink">{counts.verified}</span> verified
+          </span>
+          <span className={stat}>
+            <span className="font-medium text-ink">{counts.dropped}</span> dropped as unverified
+          </span>
+          <span className={stat}>
+            <span className="font-medium text-ink">{counts.none}</span> no recent signal
+          </span>
+          {counts.failed > 0 && (
+            <span className={stat}>
+              <span className="font-medium text-ink">{counts.failed}</span> failed
+            </span>
+          )}
+        </p>
       </div>
-      <p className="mt-4 flex flex-wrap gap-x-4 gap-y-1 border-y border-line py-2.5 font-mono text-xs text-muted">
-        <span>
-          <span className="text-good">{counts.verified}</span> verified signals
-        </span>
-        <span>
-          <span className={counts.dropped ? "text-accent" : ""}>{counts.dropped}</span> dropped as unverified
-        </span>
-        <span>{counts.none} with no recent signal</span>
-        {counts.failed > 0 && <span>{counts.failed} failed</span>}
-      </p>
-      </div>
-      {cards.length === 0 && <p className="mt-8 text-sm text-muted pulse">Drafts appear here as each company is researched.</p>}
-      <ol className="mt-5 space-y-4">
+      {cards.length === 0 && <p className="pulse mt-8 text-sm text-muted">Drafts appear here as each company is researched.</p>}
+      <ol className="mt-3 space-y-4">
         {[...cards].sort(byStrength).map((c) => (
           <ProspectCard key={c.domain} card={c} still={still} onChange={(patch) => onChange?.(c.domain, patch)} />
         ))}
@@ -428,61 +518,49 @@ export function Queue({ cards, stats, total, onChange, still = false }: { cards:
 export function SignalLine({ card }: { card: Card }) {
   if (card.signal)
     return (
-      <div className="mt-3 rounded-xl bg-sunk p-3 text-sm leading-snug">
-        <p>{card.signal.summary}</p>
-        <p className="mt-2 flex flex-wrap items-center gap-2 text-xs">
-          <a
-            href={card.signal.url}
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex items-center gap-1.5 rounded-full bg-good-soft px-2.5 py-1 font-medium text-good transition hover:brightness-95"
-            title="This URL was returned by the web search, so the claim can be checked."
-          >
-            <svg aria-hidden viewBox="0 0 16 16" className="size-3.5 fill-current">
-              <path d="M8 1.5 2.5 3.8v3.6c0 3.3 2.3 6.3 5.5 7.1 3.2-.8 5.5-3.8 5.5-7.1V3.8L8 1.5Zm-1 9.6L4.6 8.7l1-1L7 9.1l3.4-3.4 1 1L7 11.1Z" />
-            </svg>
-            Verified source · {host(card.signal.url)}
-          </a>
-          <span className="text-muted">
-            {card.signal.kind}, {card.signal.date}
-          </span>
-        </p>
+      <div className="mt-4">
+        <p className="text-[15px] leading-snug">{card.signal.summary}</p>
+        <div className="mt-2.5 flex flex-wrap items-center gap-2">
+          <VerifiedChip url={card.signal.url} />
+          <span className="rounded-full border border-line px-2.5 py-1 text-xs capitalize text-muted">{card.signal.kind}</span>
+          <span className="text-xs text-muted">{card.signal.date}</span>
+        </div>
       </div>
     );
   return (
-    <p className="mt-3 rounded-xl bg-sunk p-3 text-sm text-muted">
-      {card.signalStatus === "dropped" ? "Signal dropped: its source was not in the search results. Fit-only email." : "No recent signal. Fit-only email."}
+    <p className="mt-4 inline-flex rounded-full border border-dashed border-line px-3 py-1 text-xs text-muted">
+      {card.signalStatus === "dropped" ? "Signal dropped: source never retrieved. Fit-only email." : "No recent signal. Fit-only email."}
     </p>
   );
 }
 
 function ProspectCard({ card, onChange, still }: { card: Card; onChange: (patch: Partial<Card>) => void; still: boolean }) {
-  const skipped = card.decision === "skipped";
   const approved = card.decision === "approved";
-  if (skipped)
+  if (card.decision === "skipped")
     return (
-      <li className="rise flex items-center justify-between gap-3 rounded-2xl border border-line px-4 py-3 text-sm text-muted">
-        <span className="truncate">
-          <span className="line-through">{card.name}</span> skipped
-        </span>
-        <button onClick={() => onChange({ decision: "pending" })} className="shrink-0 font-medium text-ink underline-offset-4 hover:underline">
+      <li className="rise flex items-center justify-between gap-3 rounded-2xl border border-dashed border-line px-4 py-3 text-sm text-muted">
+        <span className="truncate">Skipped {card.name}</span>
+        <button onClick={() => onChange({ decision: "pending" })} className="shrink-0 font-medium text-ink hover:underline">
           Undo
         </button>
       </li>
     );
   const edit = (email: Partial<Card["email"]>) => onChange({ email: { ...card.email, ...email } });
   return (
-    <li className={`rounded-2xl border bg-panel p-4 transition-colors sm:p-5 ${approved ? "border-accent/60" : "border-line"} ${still ? "" : "rise"}`}>
-      <div className="flex items-baseline justify-between gap-3">
-        <h3 className="truncate text-lg font-semibold tracking-tight">{card.name}</h3>
-        <a href={`https://${card.domain}`} target="_blank" rel="noreferrer noopener" className="shrink-0 font-mono text-xs text-muted hover:text-ink">
-          {card.domain}
-        </a>
+    <li className={`rounded-3xl border bg-raised p-5 transition-[border-color,box-shadow] duration-300 sm:p-6 ${approved ? "border-blue/50 shadow-[0_0_0_4px_var(--blue-soft)]" : "border-line"} ${still ? "" : "rise"}`}>
+      <div className="flex items-center gap-3">
+        <Avatar name={card.name} />
+        <div className="min-w-0 flex-1">
+          <h3 className="truncate font-semibold tracking-[-0.01em]">{card.name}</h3>
+          <a href={`https://${card.domain}`} target="_blank" rel="noreferrer noopener" className="block truncate text-xs text-muted hover:text-ink">
+            {card.domain}
+          </a>
+        </div>
       </div>
-      <p className="mt-1 text-sm leading-snug text-muted">{card.fit}</p>
+      <p className="mt-3 text-sm leading-snug text-muted">{card.fit}</p>
       <SignalLine card={card} />
-      <div className="mt-4 border-t border-line pt-3">
-        <label className="flex items-baseline gap-2 text-sm">
+      <div className="mt-5 rounded-2xl bg-surface p-4">
+        <label className="flex items-baseline gap-2 border-b border-line pb-2.5 text-sm">
           <span className="text-muted">Subject</span>
           <input
             value={card.email.subject}
@@ -497,29 +575,29 @@ function ProspectCard({ card, onChange, still }: { card: Card; onChange: (patch:
           readOnly={still || approved}
           aria-label={`Email to ${card.name}`}
           rows={still ? 6 : 10}
-          className="grow mt-2 block w-full resize-none bg-transparent text-[15px] leading-relaxed outline-none"
+          className="grow mt-2.5 block w-full resize-none bg-transparent text-[15px] leading-relaxed outline-none"
         />
       </div>
       {!still && (
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-4 flex items-center gap-2">
           {approved ? (
             <>
-              <span className="rise inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-                <svg aria-hidden viewBox="0 0 16 16" className="size-4 fill-current">
-                  <path d="M6.2 11.6 2.8 8.2l1-1 2.4 2.4 6-6 1 1-7 7Z" />
-                </svg>
+              <span className="rise inline-flex items-center gap-1.5 text-sm font-medium text-blue-ink">
+                <span className="grid size-5 place-items-center rounded-full bg-blue text-white">
+                  <Check className="size-3" />
+                </span>
                 Approved
               </span>
-              <button onClick={() => onChange({ decision: "pending" })} className="ml-auto text-sm text-muted underline-offset-4 hover:text-ink hover:underline">
+              <button onClick={() => onChange({ decision: "pending" })} className="ml-auto text-sm text-muted hover:text-ink">
                 Edit
               </button>
             </>
           ) : (
             <>
-              <button onClick={() => onChange({ decision: "approved" })} className="rounded-lg bg-ink px-4 py-2 text-sm font-medium text-bg transition active:scale-[0.97] hover:opacity-90">
+              <button onClick={() => onChange({ decision: "approved" })} className={pillBlack}>
                 Approve
               </button>
-              <button onClick={() => onChange({ decision: "skipped" })} className="rounded-lg px-3 py-2 text-sm text-muted transition hover:bg-sunk hover:text-ink">
+              <button onClick={() => onChange({ decision: "skipped" })} className="rounded-full px-3 py-2 text-sm text-muted transition hover:bg-surface hover:text-ink">
                 Skip
               </button>
             </>
@@ -530,35 +608,7 @@ function ProspectCard({ card, onChange, still }: { card: Card; onChange: (patch:
   );
 }
 
-// ---------- Login helper ----------
-
-export function FillDemo({ email, password }: { email: string; password: string }) {
-  return (
-    <button
-      type="button"
-      className="font-medium text-accent underline-offset-4 hover:underline"
-      onClick={() => {
-        const form = document.getElementById("login") as HTMLFormElement | null;
-        if (!form) return;
-        (form.elements.namedItem("email") as HTMLInputElement).value = email;
-        (form.elements.namedItem("password") as HTMLInputElement).value = password;
-      }}
-    >
-      Fill demo credentials
-    </button>
-  );
-}
-
-// ---------- Shared bits ----------
-
-export function Wordmark() {
-  return (
-    <span className="inline-flex items-center gap-1.5 text-[17px] font-semibold tracking-tight">
-      <span aria-hidden className="size-2.5 rounded-full bg-accent" />
-      draftit
-    </span>
-  );
-}
+// ---------- Landing helpers ----------
 
 // The landing page's product shot: the real recorded run, folded to its final state and frozen.
 export function ProductShot({ demo }: { demo: DemoRun }) {
@@ -566,8 +616,25 @@ export function ProductShot({ demo }: { demo: DemoRun }) {
   const cards = end.cards.filter((c) => c.signal).slice(0, 2).map((c, i) => ({ ...c, decision: i === 0 ? ("approved" as const) : ("pending" as const) }));
   return (
     <div className="grid gap-8 p-5 sm:p-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-10">
-      <Feed state={end} still />
+      <Feed state={{ ...end, rows: end.rows.slice(0, 7) }} still />
       <Queue cards={cards} stats={end.stats} total={cards.length} still />
     </div>
+  );
+}
+
+export function FillDemo({ email, password }: { email: string; password: string }) {
+  return (
+    <button
+      type="button"
+      className="font-medium text-blue-ink hover:underline"
+      onClick={() => {
+        const form = document.getElementById("login") as HTMLFormElement | null;
+        if (!form) return;
+        (form.elements.namedItem("email") as HTMLInputElement).value = email;
+        (form.elements.namedItem("password") as HTMLInputElement).value = password;
+      }}
+    >
+      Fill them in
+    </button>
   );
 }

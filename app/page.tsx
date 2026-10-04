@@ -1,124 +1,179 @@
 import demo from "../data/demo-run.json";
 import type { Prospect } from "../lib/pipeline";
-import { ProductShot, SignalLine, Wordmark, type DemoRun } from "./ui";
+import { pillBlack, pillBlue, pillWhite, ProductShot, SignalLine, Wordmark, type DemoRun } from "./ui";
 
 const run = demo as DemoRun;
-const example = run.events.map((e) => e.event).find((e): e is { type: "prospect"; prospect: Prospect } => e.type === "prospect" && e.prospect.signalStatus === "verified")!.prospect;
+const prospects = run.events.map((e) => e.event).flatMap((e) => (e.type === "prospect" ? [e.prospect] : []));
+const example: Prospect = prospects.find((p) => p.signalStatus === "verified")!;
+const second: Prospect = prospects.filter((p) => p.signalStatus === "verified")[1] ?? example;
 
-const cta = "inline-flex items-center rounded-full bg-accent px-5 py-2.5 font-medium text-accent-ink transition active:scale-[0.98] hover:brightness-105";
+const host = (url: string) => new URL(url).hostname.replace(/^www\./, "");
 
-const steps = [
-  ["Paste your URL", "It reads your homepage and writes down what you sell and who buys it. You check it and fix anything that is off."],
-  ["The agent researches", "It searches for ten companies that would buy, then looks for one recent reason each of them needs you now."],
-  ["You approve", "Every draft waits in a queue. Edit it, approve it or skip it. Nothing is ever sent for you."],
+function Vignette({ children }: { children: React.ReactNode }) {
+  return <div className="flex h-44 items-center justify-center rounded-2xl border border-line bg-surface p-5">{children}</div>;
+}
+
+const steps: { title: string; body: string; ui: React.ReactNode }[] = [
+  {
+    title: "Paste your URL",
+    body: "It reads your homepage and writes down who buys from you. You fix anything that is off.",
+    ui: (
+      <div className="shadow-soft flex w-full max-w-xs items-center gap-2 rounded-full border border-line bg-raised p-1.5 pl-4 text-sm">
+        <span className="flex-1 truncate text-ink">{run.domain}</span>
+        <span className={`${pillBlue} px-3.5 py-1.5 text-xs`}>Draft</span>
+      </div>
+    ),
+  },
+  {
+    title: "It researches",
+    body: "Ten companies that would buy, and one recent reason each, with the link it came from.",
+    ui: (
+      <div className="shadow-soft w-full max-w-xs rounded-2xl border border-line bg-raised p-3.5 text-left">
+        <div className="flex items-center gap-2.5">
+          <span className="grid size-6 place-items-center rounded-md border border-line bg-surface text-xs font-semibold">{second.name.charAt(0).toUpperCase()}</span>
+          <span className="flex-1 truncate text-sm font-medium">{second.name}</span>
+          <span className="grid size-4 place-items-center rounded-full bg-blue text-[9px] text-white">✓</span>
+        </div>
+        <p className="mt-2 line-clamp-2 text-xs leading-snug text-muted">{second.signal?.summary}</p>
+        <span className="mt-2 inline-flex rounded-full bg-blue-soft px-2 py-0.5 text-[11px] font-medium text-blue-ink">Verified · {host(second.signal!.url)}</span>
+      </div>
+    ),
+  },
+  {
+    title: "You approve",
+    body: "Every draft waits for you. Edit, approve or skip, then export. Nothing is sent.",
+    ui: (
+      <div className="shadow-soft w-full max-w-xs rounded-2xl border border-line bg-raised p-3.5 text-left">
+        <p className="truncate text-xs text-muted">Subject: {example.email.subject}</p>
+        <div className="mt-2 space-y-1.5">
+          <div className="h-1.5 w-full rounded-full bg-surface" />
+          <div className="h-1.5 w-4/5 rounded-full bg-surface" />
+          <div className="h-1.5 w-3/5 rounded-full bg-surface" />
+        </div>
+        <div className="mt-3 flex items-center gap-2">
+          <span className={`${pillBlack} px-3 py-1 text-xs`}>Approve</span>
+          <span className="text-xs text-muted">Skip</span>
+        </div>
+      </div>
+    ),
+  },
 ];
 
 export default function Landing() {
   return (
-    <main>
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-8">
+    <main className="overflow-x-clip">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
         <a href="/" aria-label="draftit home">
           <Wordmark />
         </a>
-        <div className="flex items-center gap-5 text-sm">
-          <a href="/login" className="text-muted transition hover:text-ink">
+        <div className="flex items-center gap-2">
+          <a href="/login" className="rounded-full px-3 py-2 text-sm text-muted transition hover:text-ink">
             Log in
           </a>
-          <a href="/app" className="rounded-full bg-ink px-4 py-2 font-medium text-bg transition hover:opacity-90">
+          <a href="/app" className={pillBlack}>
             Try the demo
           </a>
         </div>
       </nav>
 
-      <section className="mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-8 sm:pt-28">
-        <h1 className="max-w-4xl font-display text-[52px] leading-[0.98] tracking-tight sm:text-[88px]">
-          Outbound that starts with <span className="whitespace-nowrap italic text-accent">a reason</span>.
+      <section className="mx-auto max-w-3xl px-4 pb-14 pt-16 text-center sm:pt-24">
+        <span className="inline-flex items-center gap-2 rounded-full border border-line bg-raised px-3 py-1 text-xs text-muted shadow-[0_1px_2px_rgb(0_0_0/0.04)]">
+          <span className="size-1.5 rounded-full bg-blue" />
+          Open source · Drafts only, nothing is sent
+        </span>
+        <h1 className="mt-6 text-[40px] font-semibold leading-[1.05] tracking-[-0.045em] sm:text-[62px]">
+          Outbound with a reason
+          <br className="hidden sm:block" /> behind every email
         </h1>
-        <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted sm:text-xl">
-          Paste your URL. Get 10 researched prospects and first emails in your voice, ready to approve.
-        </p>
-        <div className="mt-9 flex flex-wrap items-center gap-5">
-          <a href="/app" className={cta}>
+        <p className="mx-auto mt-5 max-w-lg text-lg text-muted">Paste your URL. Get 10 researched prospects and first emails in your voice, ready to approve.</p>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+          <a href="/app" className={pillBlue}>
             Try the demo
           </a>
-          <a href="#how" className="text-sm font-medium text-muted transition hover:text-ink">
-            How it works ↓
+          <a href="#how" className={`${pillWhite} px-5 py-2.5 text-[15px]`}>
+            How it works
           </a>
         </div>
       </section>
 
-      <section aria-label="Product preview" className="mx-auto max-w-6xl px-4 sm:px-8">
-        <div className="overflow-hidden rounded-2xl border border-line bg-bg shadow-[0_24px_60px_-30px_rgba(40,25,10,0.25)]">
-          <div className="flex items-center gap-2 border-b border-line bg-panel px-4 py-3">
-            <span className="size-2.5 rounded-full bg-line" />
-            <span className="size-2.5 rounded-full bg-line" />
-            <span className="size-2.5 rounded-full bg-line" />
-            <span className="ml-3 truncate font-mono text-xs text-muted">A recorded run for {run.domain}</span>
-          </div>
-          <div className="pointer-events-none max-h-[640px] overflow-hidden select-none">
-            <ProductShot demo={run} />
+      <section aria-label="Product preview" className="mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="sky rounded-[28px] p-3 sm:p-12 lg:px-16 lg:pt-16">
+          <div className="shadow-float overflow-hidden rounded-2xl border border-white/60 bg-bg dark:border-white/10">
+            <div className="flex items-center gap-1.5 border-b border-line px-4 py-3">
+              <span className="size-2.5 rounded-full bg-line" />
+              <span className="size-2.5 rounded-full bg-line" />
+              <span className="size-2.5 rounded-full bg-line" />
+              <span className="ml-3 truncate text-xs text-muted">Recorded run · {run.domain}</span>
+            </div>
+            <div className="pointer-events-none max-h-[620px] select-none overflow-hidden" inert>
+              <ProductShot demo={run} />
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="how" className="mx-auto max-w-6xl scroll-mt-8 px-4 pt-28 sm:px-8 sm:pt-36">
-        <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">How it works</p>
-        <h2 className="mt-3 max-w-2xl font-display text-4xl leading-tight tracking-tight sm:text-5xl">Two minutes from a URL to a queue of drafts.</h2>
-        <ol className="mt-12 grid gap-10 sm:grid-cols-3 sm:gap-8">
-          {steps.map(([title, body], i) => (
-            <li key={title} className="border-t border-line pt-5">
-              <span className="font-mono text-xs text-accent">0{i + 1}</span>
-              <h3 className="mt-3 text-lg font-semibold tracking-tight">{title}</h3>
-              <p className="mt-2 leading-relaxed text-muted">{body}</p>
+      <section id="how" className="mx-auto max-w-6xl scroll-mt-8 px-4 pt-28 sm:px-6 sm:pt-36">
+        <h2 className="max-w-xl text-3xl font-semibold tracking-[-0.035em] sm:text-[40px] sm:leading-[1.1]">From a URL to a queue of drafts in two minutes</h2>
+        <ol className="mt-10 grid gap-4 md:grid-cols-3">
+          {steps.map((s) => (
+            <li key={s.title} className="rounded-3xl border border-line bg-raised p-3">
+              <Vignette>{s.ui}</Vignette>
+              <div className="px-3 pb-3 pt-5">
+                <h3 className="font-semibold tracking-[-0.01em]">{s.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">{s.body}</p>
+              </div>
             </li>
           ))}
         </ol>
       </section>
 
-      <section className="mx-auto grid max-w-6xl gap-12 px-4 pt-28 sm:px-8 sm:pt-36 lg:grid-cols-2 lg:gap-16">
+      <section className="mx-auto grid max-w-6xl items-center gap-10 px-4 pt-28 sm:px-6 sm:pt-36 lg:grid-cols-2 lg:gap-16">
         <div>
-          <p className="text-xs font-medium uppercase tracking-[0.14em] text-muted">The verified-source rule</p>
-          <h2 className="mt-3 font-display text-4xl leading-tight tracking-tight sm:text-5xl">Every claim links to where it was found.</h2>
-          <p className="mt-6 text-lg leading-relaxed text-muted">
-            Generic emails get ignored because they are not about anything. Made-up ones are worse. So a signal only reaches an email if its source URL actually came back from a web search.
-          </p>
-          <p className="mt-4 text-lg leading-relaxed text-muted">
-            If the agent cites a page it never retrieved, the signal is dropped, counted on screen, and the email falls back to fit alone, clearly labelled.
+          <h2 className="text-3xl font-semibold tracking-[-0.035em] sm:text-[40px] sm:leading-[1.1]">Every claim links to where it was found</h2>
+          <p className="mt-5 max-w-md leading-relaxed text-muted">
+            A signal only reaches an email if its source came back from a real web search. Anything else is dropped, counted on screen, and the email says nothing recent.
           </p>
         </div>
-        <div className="self-center rounded-2xl border border-line bg-panel p-5 sm:p-6">
-          <p className="flex items-baseline justify-between gap-3">
-            <span className="text-lg font-semibold tracking-tight">{example.name}</span>
-            <span className="font-mono text-xs text-muted">{example.domain}</span>
-          </p>
-          <SignalLine card={{ ...example, decision: "pending" }} />
-          <ul className="mt-5 space-y-2.5 text-sm">
-            <li className="flex gap-3">
-              <span aria-hidden className="mt-[7px] size-2 shrink-0 rounded-full bg-good" />
-              Source returned by the search: shown with a verified chip.
-            </li>
-            <li className="flex gap-3">
-              <span aria-hidden className="mt-[7px] size-2 shrink-0 rounded-full bg-accent" />
-              Source the model typed itself: retried once, then dropped and counted.
-            </li>
-            <li className="flex gap-3">
-              <span aria-hidden className="mt-[7px] size-2 shrink-0 rounded-full bg-line" />
-              Nothing recent found: the email says nothing about recent news.
-            </li>
-          </ul>
+        <div className="rounded-[28px] bg-surface p-3 sm:p-6">
+          <div className="shadow-soft rounded-3xl border border-line bg-raised p-5 sm:p-6">
+            <div className="flex items-center gap-3">
+              <span className="grid size-7 place-items-center rounded-lg border border-line bg-surface text-[13px] font-semibold">{example.name.charAt(0).toUpperCase()}</span>
+              <div className="min-w-0">
+                <p className="truncate font-semibold">{example.name}</p>
+                <p className="truncate text-xs text-muted">{example.domain}</p>
+              </div>
+            </div>
+            <SignalLine card={{ ...example, decision: "pending" }} />
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-28 text-center sm:px-8 sm:py-36">
-        <h2 className="mx-auto max-w-2xl font-display text-4xl leading-tight tracking-tight sm:text-6xl">See a real run in under a minute.</h2>
-        <a href="/app" className={`${cta} mt-9`}>
-          Try the demo
-        </a>
+      <section className="mx-auto max-w-6xl px-4 pt-28 sm:px-6 sm:pt-36">
+        <div className="rounded-[28px] bg-surface px-6 py-16 text-center sm:py-20">
+          <h2 className="text-3xl font-semibold tracking-[-0.035em] sm:text-[40px]">See a real run in a minute</h2>
+          <p className="mt-3 text-muted">No signup. It replays a recorded run.</p>
+          <a href="/app" className={`${pillBlue} mt-8`}>
+            Try the demo
+          </a>
+        </div>
       </section>
 
-      <footer className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 border-t border-line px-4 py-8 text-sm text-muted sm:px-8">
-        <Wordmark />
-        <span>Open source, MIT licensed. Drafts only, nothing is sent.</span>
+      <footer className="mx-auto max-w-6xl px-4 pt-20 sm:px-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 text-sm text-muted">
+          <Wordmark />
+          <div className="flex gap-5">
+            <a href="/app" className="hover:text-ink">
+              Demo
+            </a>
+            <a href="/login" className="hover:text-ink">
+              Log in
+            </a>
+            <span>MIT license</span>
+          </div>
+        </div>
+        <p aria-hidden className="wordmark-fade mt-6 select-none text-center text-[26vw] font-semibold leading-[0.8] tracking-[-0.06em] lg:text-[300px]">
+          draftit
+        </p>
       </footer>
     </main>
   );

@@ -6,20 +6,20 @@ import { FillDemo, Wordmark } from "../ui";
 
 export const dynamic = "force-dynamic";
 
-const field = "mt-2 block w-full rounded-xl border border-line bg-panel px-3.5 py-3 text-[15px] outline-none transition focus:border-ink/30";
+const field = "mt-1.5 block w-full rounded-xl border border-line bg-raised px-3.5 py-2.5 text-[15px] outline-none transition focus:border-blue/50 focus:ring-4 focus:ring-blue-soft";
 
 export default async function Login({ searchParams }: { searchParams: Promise<{ error?: string }> }) {
   if (hasSession((await cookies()).get(SESSION_COOKIE)?.value)) redirect("/app");
   const { error } = await searchParams;
   return (
-    <main className="mx-auto flex min-h-dvh max-w-sm flex-col px-4 py-6">
-      <a href="/" aria-label="draftit home">
+    <main className="flex min-h-dvh flex-col items-center justify-center bg-surface px-4 py-12">
+      <a href="/" aria-label="draftit home" className="mb-8">
         <Wordmark />
       </a>
-      <div className="my-auto py-16">
-        <h1 className="font-display text-4xl tracking-tight">Log in</h1>
-        <p className="mt-2 text-muted">This is a demo account, shared by everyone.</p>
-        <form id="login" action="/api/login" method="post" className="mt-8">
+      <div className="shadow-soft w-full max-w-sm rounded-3xl border border-line bg-raised p-6 sm:p-8">
+        <h1 className="text-xl font-semibold tracking-[-0.02em]">Log in to draftit</h1>
+        <p className="mt-1 text-sm text-muted">One shared demo account.</p>
+        <form id="login" action="/api/login" method="post" className="mt-6">
           <label className="block text-sm font-medium">
             Email
             <input name="email" type="email" required autoComplete="username" className={field} />
@@ -29,22 +29,22 @@ export default async function Login({ searchParams }: { searchParams: Promise<{ 
             <input name="password" type="password" required autoComplete="current-password" className={field} />
           </label>
           {error && (
-            <p role="alert" className="mt-4 text-sm text-accent">
+            <p role="alert" className="mt-4 text-sm text-red-600 dark:text-red-400">
               That email and password do not match the demo account.
             </p>
           )}
-          <button className="mt-6 w-full rounded-xl bg-accent px-5 py-3 font-medium text-accent-ink transition active:scale-[0.98] hover:brightness-105">Log in</button>
+          <button className="mt-6 w-full rounded-full bg-ink px-5 py-2.5 font-medium text-bg transition hover:opacity-85 active:scale-[0.98]">Continue</button>
         </form>
-        <div className="mt-8 rounded-xl border border-dashed border-line p-4 text-sm">
-          <p className="text-muted">Demo credentials</p>
-          <p className="mt-1 font-mono text-[13px]">
-            {env.DEMO_EMAIL} / {env.DEMO_PASSWORD}
+        <div className="mt-6 rounded-2xl bg-surface px-4 py-3 text-sm">
+          <p className="text-muted">
+            Demo: <span className="font-medium text-ink">{env.DEMO_EMAIL}</span> / <span className="font-medium text-ink">{env.DEMO_PASSWORD}</span>
           </p>
-          <div className="mt-2">
+          <div className="mt-1">
             <FillDemo email={env.DEMO_EMAIL} password={env.DEMO_PASSWORD} />
           </div>
         </div>
       </div>
+      <p className="mt-6 text-xs text-muted">A demo gate, not a real account system.</p>
     </main>
   );
 }
