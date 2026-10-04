@@ -1,6 +1,7 @@
 import demo from "../data/demo-run.json";
 import type { Prospect } from "../lib/pipeline";
-import { pillBlack, pillBlue, pillWhite, ProductShot, SignalLine, Wordmark, type DemoRun } from "./ui";
+import { pillBlack, pillBlue, pillWhite } from "./pills";
+import { ProductShot, SignalLine, Wordmark, type DemoRun } from "./ui";
 
 const run = demo as DemoRun;
 const prospects = run.events.map((e) => e.event).flatMap((e) => (e.type === "prospect" ? [e.prospect] : []));

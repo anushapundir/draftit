@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import { SESSION_COOKIE } from "../../../lib/access";
 
-export async function POST(req: Request) {
-  const res = NextResponse.redirect(new URL("/", req.url), 303);
+// Relative Location, so the redirect keeps whatever host the browser used (req.url can differ behind a proxy).
+const see = (path: string) => new NextResponse(null, { status: 303, headers: { location: path } });
+
+export async function POST() {
+  const res = see("/");
   res.cookies.delete(SESSION_COOKIE);
   return res;
 }

@@ -1,7 +1,8 @@
 import demo from "../../data/demo-run.json";
 import { liveAccessConfigured } from "../../lib/access";
 import { hasAgentKey } from "../../lib/env";
-import { pillWhite, Wordmark, Workspace, type DemoRun } from "../ui";
+import { pillWhite } from "../pills";
+import { Wordmark, Workspace, type DemoRun } from "../ui";
 
 export const dynamic = "force-dynamic";
 

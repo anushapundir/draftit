@@ -23,6 +23,8 @@ draftit only writes about things it can point to.
 
 The research streams live into the page as it happens, so you can watch each company go from searching to a signal to a draft.
 
+![The first screen: one input](docs/app-empty.png)
+
 ![A run in progress: the research feed on the left, drafts arriving on the right](docs/app-running.png)
 
 ![The approval queue, with a verified source chip on the signal](docs/app-queue.png)
@@ -51,7 +53,7 @@ The homepage fetch refuses private and loopback addresses, checks every resolved
 
 A signal only reaches an email if its source URL is one the web search tool actually returned for that company. The check uses the URLs in the search result blocks of the API response, not URLs the model typed into its answer.
 
-- **Verified:** the cited URL matches a retrieved URL (ignoring scheme, `www`, trailing slash, fragment and `utm_` parameters; the path and the rest of the query must match). The card shows a green **Verified source** chip that links to it.
+- **Verified:** the cited URL matches a retrieved URL (ignoring scheme, `www`, trailing slash, fragment and `utm_` parameters; the path and the rest of the query must match). The card shows a blue **Verified** chip that links to it.
 - **Not verified:** the model is told the URL was not in its results and gets one retry. If it still cannot cite a retrieved URL, the signal is dropped, the email is written from fit alone, and the card says so. Dropped signals are counted on screen next to the verified ones. They are never hidden.
 - **Nothing found:** the email is written from fit alone and labelled "No recent signal". It does not pretend to know anything recent.
 
